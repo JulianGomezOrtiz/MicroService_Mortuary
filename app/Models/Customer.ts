@@ -20,6 +20,6 @@ export default class Customer extends BaseModel {
   @column()
   status: number;
 
-  //plan_id foreign keys y use
+  //plan_id foreign keys
   
 }

@@ -16,6 +16,7 @@ export default class DriversController {
       }
     }
   }
+  
   public async create({ request }: HttpContextContract) {
     const body = request.body();
     const theDriver: Driver = await Driver.create(body);

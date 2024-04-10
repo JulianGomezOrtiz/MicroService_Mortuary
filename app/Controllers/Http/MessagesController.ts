@@ -16,6 +16,7 @@ export default class MessagesController {
       }
     }
   }
+
   public async create({ request }: HttpContextContract) {
     const body = request.body();
     const theMessage: Message = await Message.create(body);
@@ -25,7 +26,7 @@ export default class MessagesController {
   public async update({ params, request }: HttpContextContract) {
     const theMessage: Message = await Message.findOrFail(params.id);
     const body = request.body();
-    theMessage.sender_id = body.sender_id;
+    theMessage.user_id = body.user_id;
     theMessage.chatRoom_id = body.chatRoom_id;
     theMessage.message = body.message;
     theMessage.date = body.date;

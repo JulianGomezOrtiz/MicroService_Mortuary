@@ -14,10 +14,9 @@ export default class AdministratorsController {
             } else {
                 return await Administrator.query()
             }
-
         }
-
     }
+    
     public async create({ request }: HttpContextContract) {
         const body = request.body();
         const theAdministrator: Administrator = await Administrator.create(body);

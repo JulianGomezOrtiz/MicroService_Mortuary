@@ -16,6 +16,7 @@ export default class CommentsAndRatingsController {
       }
     }
   }
+
   public async create({ request }: HttpContextContract) {
     const body = request.body();
     const theCommentAndRating: CommentAndRating = await CommentAndRating.create(body);
@@ -25,8 +26,8 @@ export default class CommentsAndRatingsController {
   public async update({ params, request }: HttpContextContract) {
     const theCommentAndRating: CommentAndRating = await CommentAndRating.findOrFail(params.id);
     const body = request.body();
-    theCommentAndRating.id_service = body.id_service;
-    theCommentAndRating.sender_id = body.sender_id;
+    theCommentAndRating.service_execution_id = body.service_execution_id;
+    theCommentAndRating.customer_id = body.customer_id;
     theCommentAndRating.description = body.description;
     theCommentAndRating.rating = body.rating;
 

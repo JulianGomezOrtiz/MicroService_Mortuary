@@ -16,6 +16,7 @@ export default class ChatRoomsController {
       }
     }
   }
+  
   public async create({ request }: HttpContextContract) {
     const body = request.body();
     const theChatRoom: ChatRoom = await ChatRoom.create(body);
@@ -25,8 +26,8 @@ export default class ChatRoomsController {
   public async update({ params, request }: HttpContextContract) {
     const theChatRoom: ChatRoom = await ChatRoom.findOrFail(params.id);
     const body = request.body();
-    theChatRoom.id_service = body.id_service;
-    theChatRoom.id_titular = body.id_titular;
+    theChatRoom.service_execution_id = body.service_execution_id;
+    theChatRoom.holder_id = body.holder_id;
     theChatRoom.name = body.name;
     theChatRoom.code = body.code;
     theChatRoom.status = body.status;

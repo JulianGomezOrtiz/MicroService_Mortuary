@@ -1,43 +1,49 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import Service from "App/Models/Service";
+import ServiceExecution from "App/Models/ServiceExecution";
 
-export default class ServicesController {
+export default class ServiceExecutionsController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
-      return await Service.findOrFail(params.id);
+      return await ServiceExecution.findOrFail(params.id);
     } else {
       const data = request.all();
       if ("page" in data && "per_page" in data) {
         const page = request.input("page", 1);
         const perPage = request.input("per_page", 20);
-        return await Service.query().paginate(page, perPage);
+        return await ServiceExecution.query().paginate(page, perPage);
       } else {
-        return await Service.query();
+        return await ServiceExecution.query();
       }
     }
   }
+
   public async create({ request }: HttpContextContract) {
     const body = request.body();
-    const theService: Service = await Service.create(body);
-    return theService;
+    const theServiceExecution: ServiceExecution = await ServiceExecution.create(
+      body
+    );
+    return theServiceExecution;
   }
 
   public async update({ params, request }: HttpContextContract) {
-    const theService: Service = await Service.findOrFail(params.id);
+    const theServiceExecution: ServiceExecution =
+      await ServiceExecution.findOrFail(params.id);
     const body = request.body();
-    theService.id_customer = body.id_customer;
-    theService.id_room = body.id_room;
-    theService.id_driver = body.id_driver;
-    theService.body_ubication = body.body_ubication;
-    theService.need_trip = body.need_trip;
-    theService.status = body.status;
+    theServiceExecution.service_id = body.service_id
+    theServiceExecution.customer_id = body.customer_id;
+    theServiceExecution.driver_id = body.driver_id;
+    theServiceExecution.room_id = body.room_id;
+    theServiceExecution.main_office = body.main_office;
+    theServiceExecution.location = body.location;
+    theServiceExecution.status = body.status;
 
-    return await theService.save();
+    return await theServiceExecution.save();
   }
 
   public async delete({ params, response }: HttpContextContract) {
-    const theService: Service = await Service.findOrFail(params.id);
+    const theServiceExecution: ServiceExecution =
+      await ServiceExecution.findOrFail(params.id);
     response.status(204);
-    return await theService.delete();
+    return await theServiceExecution.delete();
   }
 }

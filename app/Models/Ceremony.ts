@@ -1,21 +1,15 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
-export default class Headquarter extends BaseModel {
+export default class Ceremony extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public name: string;
+  public type_of_ceremony: string;
 
   @column()
-  public description: string;
-
-  @column()
-  public capacity: number;
-
-  @column()
-  public city_id: number;
+  public location: string;
 
   @column()
   public status: number;

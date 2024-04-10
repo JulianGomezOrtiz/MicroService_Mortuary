@@ -5,17 +5,11 @@ export default class Message extends BaseModel {
   @column({ isPrimary: true })
   public id: number;
 
-  @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime;
-
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime;
+  @column()
+  public user_id: string;
 
   @column()
-  public sender_id: string;
-
-  @column()
-  public chatRoom_id: string;
+  public chatRoom_id: number;
 
   @column()
   public message: string;
@@ -25,4 +19,10 @@ export default class Message extends BaseModel {
 
   @column()
   public status: number;
+  
+  @column.dateTime({ autoCreate: true })
+  public createdAt: DateTime;
+
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  public updatedAt: DateTime;
 }

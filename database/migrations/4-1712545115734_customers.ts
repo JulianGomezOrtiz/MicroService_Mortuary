@@ -1,18 +1,16 @@
 import BaseSchema from "@ioc:Adonis/Lucid/Schema";
 
 export default class extends BaseSchema {
-  protected tableName = "memberships";
+  protected tableName = "customers";
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments("id");
+      table.string("user_id").notNullable();
+      table.integer("plan_id").unsigned().references("plans.id").onDelete('CASCADE');
+      table.integer("status");
       table.timestamp("created_at", { useTz: true });
       table.timestamp("updated_at", { useTz: true });
-      table.string("name");
-      table.string("plan_id").references("plan_id"); //duda respecto a las referencias de springboot
-      table.string("customer_id").references("customer_id");
-      table.date("Date");
-      table.integer("status");
     });
   }
 

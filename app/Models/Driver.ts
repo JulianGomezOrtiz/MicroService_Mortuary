@@ -5,12 +5,6 @@ export default class Driver extends BaseModel {
   @column({ isPrimary: true })
   public id: number;
 
-  @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime;
-
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime;
-
   @column()
   public user_id: string;
 
@@ -32,5 +26,9 @@ export default class Driver extends BaseModel {
   @column()
   public status: number;
 
-  //foreign key inexistente por dominio
+  @column.dateTime({ autoCreate: true })
+  public createdAt: DateTime;
+
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  public updatedAt: DateTime;
 }

@@ -1,21 +1,21 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
-export default class Headquarter extends BaseModel {
+export default class Beneficiarie extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public name: string;
+  public customer_id: number;
 
   @column()
-  public description: string;
+  public holder_id: number;
+  
+  @column()
+  public isprincipal_beneficiarie: boolean;
 
   @column()
-  public capacity: number;
-
-  @column()
-  public city_id: number;
+  public isEmergyContact: boolean;
 
   @column()
   public status: number;

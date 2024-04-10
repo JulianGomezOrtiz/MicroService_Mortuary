@@ -16,6 +16,7 @@ export default class CustomersController {
       }
     }
   }
+  
   public async create({ request }: HttpContextContract) {
     const body = request.body();
     const theCustomer: Customer = await Customer.create(body);

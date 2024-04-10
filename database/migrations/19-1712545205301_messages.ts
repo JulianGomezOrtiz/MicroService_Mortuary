@@ -1,18 +1,18 @@
 import BaseSchema from "@ioc:Adonis/Lucid/Schema";
 
 export default class extends BaseSchema {
-  protected tableName = "bills";
+  protected tableName = "messages";
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments("id");
+      table.string("user_id").notNullable(); //duda con respecto a la referencia
+      table.integer("chatRoom_id").unsigned().references("chatrooms.id").onDelete('CASCADE');
+      table.string("message");
+      table.date("date");
+      table.integer("status");
       table.timestamp("created_at", { useTz: true });
       table.timestamp("updated_at", { useTz: true });
-      table.string("user_id").unsigned().references("user_id");
-      table
-        .string("payment_method_id")
-        .unsigned()
-        .references("payment_method_id");
     });
   }
 

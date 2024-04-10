@@ -14,10 +14,9 @@ export default class BillsController {
             } else {
                 return await Bills.query()
             }
-
         }
-
     }
+
     public async create({ request }: HttpContextContract) {
         const body = request.body();
         const theBills: Bills = await Bills.create(body);

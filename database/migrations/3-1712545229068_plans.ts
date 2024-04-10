@@ -6,13 +6,13 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments("id");
-      table.timestamp("created_at", { useTz: true });
-      table.timestamp("updated_at", { useTz: true });
       table.string("name");
       table.string("description");
       table.integer("number_of_beneficiaries");
       table.double("price");
       table.integer("discount");
+      table.timestamp("created_at", { useTz: true });
+      table.timestamp("updated_at", { useTz: true });
     });
   }
 

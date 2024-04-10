@@ -5,17 +5,11 @@ export default class ChatRoom extends BaseModel {
   @column({ isPrimary: true })
   public id: number;
 
-  @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime;
-
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime;
+  @column()
+  public service_execution_id: number;
 
   @column()
-  public id_service: String;
-
-  @column()
-  public id_titular: String;
+  public holder_id: number;
 
   @column()
   public name: String;
@@ -26,5 +20,9 @@ export default class ChatRoom extends BaseModel {
   @column()
   public status: number;
 
-  //two foreign keys
+  @column.dateTime({ autoCreate: true })
+  public createdAt: DateTime;
+
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  public updatedAt: DateTime;
 }

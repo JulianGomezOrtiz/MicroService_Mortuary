@@ -16,6 +16,7 @@ export default class MembershipsController {
       }
     }
   }
+  
   public async create({ request }: HttpContextContract) {
     const body = request.body();
     const theMembership: Membership = await Membership.create(body);

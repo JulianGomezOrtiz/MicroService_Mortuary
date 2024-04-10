@@ -5,20 +5,11 @@ export default class Service extends BaseModel {
   @column({ isPrimary: true })
   public id: number;
 
-  @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime;
-
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime;
+  @column()
+  public customer_id: number;
 
   @column()
-  public id_customer: string;
-
-  @column()
-  public id_room: string;
-
-  @column()
-  public id_driver: string;
+  public ceremony_id: number;
 
   @column()
   public body_ubication: String;
@@ -28,6 +19,10 @@ export default class Service extends BaseModel {
 
   @column()
   public status: number;
+  
+  @column.dateTime({ autoCreate: true })
+  public createdAt: DateTime;
 
-  //three foreign keys
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  public updatedAt: DateTime;
 }

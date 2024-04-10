@@ -1,18 +1,13 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, HasOne, column, hasOne } from '@ioc:Adonis/Lucid/Orm'
 
-export default class Administrator extends BaseModel {
+
+export default class Holder extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public user_id: string
-
-  @column()
-  public main_office: String
-
-  @column()
-  public responsabilities: String
+  public customer_id: number
 
   @column()
   public status: number
@@ -22,4 +17,5 @@ export default class Administrator extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
 }

@@ -1,28 +1,22 @@
-import { DateTime } from "luxon";
-import { BaseModel, HasMany, column, hasMany } from "@ioc:Adonis/Lucid/Orm";
-import Department from "./Department";
+import { DateTime } from 'luxon'
+import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
-export default class Movie extends BaseModel {
+export default class City extends BaseModel {
   @column({ isPrimary: true })
-  public id: number;
+  public id: number
 
   @column()
   public name: string;
 
   @column()
-  public status: number;
+  public department_id: number;
 
   @column()
-  public department_id: Department;
+  public status: number;
 
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime;
+  public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime;
-
-  @hasMany(() => Department, {
-    foreignKey: "department_id",
-  })
-  public departments: HasMany<typeof Department>;
+  public updatedAt: DateTime
 }

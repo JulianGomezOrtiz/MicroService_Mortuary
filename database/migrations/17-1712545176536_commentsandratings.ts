@@ -6,12 +6,12 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments("id");
-      table.timestamp("created_at", { useTz: true });
-      table.timestamp("updated_at", { useTz: true });
-      table.string("id_service");
-      table.string("sender_id"); //duda dos ID para el mismo elemento?
+      table.integer("service_execution_id").unsigned().references("service_executions.id").onDelete('CASCADE');
+      table.integer("customer_id").unsigned().references("customers.id").onDelete('CASCADE'); //duda dos ID para el mismo elemento?
       table.string("description");
       table.integer("rating");
+      table.timestamp("created_at", { useTz: true });
+      table.timestamp("updated_at", { useTz: true });
     });
   }
 

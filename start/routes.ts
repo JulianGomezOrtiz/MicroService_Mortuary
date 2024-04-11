@@ -21,67 +21,67 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get("/Administrators","AdministratorsController.index");
-Route.post("/Administrators","AdministratorsController.store");
-Route.get("/Administrators/:id","AdministratorsController.show");
+Route.post("/Administrators","AdministratorsController.create");
+Route.get("/Administrators/:id","AdministratorsController.find");
 Route.put("/Administrators/:id","AdministratorsController.update");
-Route.delete("/Administrators/:id","AdministratorsController.destroy");
+Route.delete("/Administrators/:id","AdministratorsController.delete");
 
 Route.get("/Bills","BillsController.index");
-Route.post("/Bills","BillsController.store");
-Route.get("/Bills/:id","BillsController.show");
+Route.post("/Bills","BillsController.create");
+Route.get("/Bills/:id","BillsController.find");
 Route.put("/Bills/:id","BillsController.update");
-Route.delete("/Bills/:id","BillsController.destroy");
+Route.delete("/Bills/:id","BillsController.delete");
 
 Route.get("/ChatRooms","ChatRoomsController.index");
-Route.post("/ChatRooms","ChatRoomsController.store");
-Route.get("/ChatRooms/:id","ChatRoomsController.show");
+Route.post("/ChatRooms","ChatRoomsController.create");
+Route.get("/ChatRooms/:id","ChatRoomsController.find");
 Route.put("/ChatRooms/:id","ChatRoomsController.update");
-Route.delete("/ChatRooms/:id","ChatRoomsController.destroy");
+Route.delete("/ChatRooms/:id","ChatRoomsController.delete");
 
 Route.get("/CommentsAndRatings","CommentsAndRatingsController.index");
-Route.post("/CommentsAndRatings","CommentsAndRatingsController.store");
-Route.get("/CommentsAndRatings/:id","CommentsAndRatingsController.show");
+Route.post("/CommentsAndRatings","CommentsAndRatingsController.create");
+Route.get("/CommentsAndRatings/:id","CommentsAndRatingsController.find");
 Route.put("/CommentsAndRatings/:id","CommentsAndRatingsController.update");
-Route.delete("/CommentsAndRatings/:id","CommentsAndRatingsController.destroy");
+Route.delete("/CommentsAndRatings/:id","CommentsAndRatingsController.delete");
 
 Route.get("/Customers","CustomersController.index");
-Route.post("/Customers","CustomersController.store");
-Route.get("/Customers/:id","CustomersController.show");
+Route.post("/Customers","CustomersController.create");
+Route.get("/Customers/:id","CustomersController.find");
 Route.put("/Customers/:id","CustomersController.update");
-Route.delete("/Customers/:id","CustomersController.destroy");
+Route.delete("/Customers/:id","CustomersController.delete");
 
 Route.get("/Drivers","DriversController.index");
-Route.post("/Drivers","DriversController.store");
-Route.get("/Drivers/:id","DriversController.show");
+Route.post("/Drivers","DriversController.create");
+Route.get("/Drivers/:id","DriversController.find");
 Route.put("/Drivers/:id","DriversController.update");
-Route.delete("/Drivers/:id","DriversController.destroy");
+Route.delete("/Drivers/:id","DriversController.delete");
 
 Route.get("/Memberships","MembershipsController.index");
-Route.post("/Memberships","MembershipsController.store");
-Route.get("/Memberships/:id","MembershipsController.show");
+Route.post("/Memberships","MembershipsController.create");
+Route.get("/Memberships/:id","MembershipsController.find");
 Route.put("/Memberships/:id","MembershipsController.update");
-Route.delete("/Memberships/:id","MembershipsController.destroy");
+Route.delete("/Memberships/:id","MembershipsController.delete");
 
 Route.get("/Messages","MessagesController.index");
-Route.post("/Messages","MessagesController.store");
-Route.get("/Messages/:id","MessagesController.show");
+Route.post("/Messages","MessagesController.create");
+Route.get("/Messages/:id","MessagesController.find");
 Route.put("/Messages/:id","MessagesController.update");
-Route.delete("/Messages/:id","MessagesController.destroy");
+Route.delete("/Messages/:id","MessagesController.delete");
 
 Route.get("/Plans","PlansController.index");
-Route.post("/Plans","PlansController.store");
-Route.get("/Plans/:id","PlansController.show");
+Route.post("/Plans","PlansController.create");
+Route.get("/Plans/:id","PlansController.find");
 Route.put("/Plans/:id","PlansController.update");
-Route.delete("/Plans/:id","PlansController.destroy");
+Route.delete("/Plans/:id","PlansController.delete");
 
 Route.get("/Services","ServicesController.index");
-Route.post("/Services","ServicesController.store");
-Route.get("/Services/:id","ServicesController.show");
+Route.post("/Services","ServicesController.create");
+Route.get("/Services/:id","ServicesController.find");
 Route.put("/Services/:id","ServicesController.update");
-Route.delete("/Services/:id","ServicesController.destroy");
+Route.delete("/Services/:id","ServicesController.delete");
 
 Route.get("/ServiceExecutions","ServiceExecutionsController.index");
-Route.post("/ServiceExecutions","ServiceExecutionsController.store");
-Route.get("/ServiceExecutions/:id","ServiceExecutionsController.show");
+Route.post("/ServiceExecutions","ServiceExecutionsController.create");
+Route.get("/ServiceExecutions/:id","ServiceExecutionsController.find");
 Route.put("/ServiceExecutions/:id","ServiceExecutionsController.update");
-Route.delete("/ServiceExecutions/:id","ServiceExecutionsController.destroy");
+Route.delete("/ServiceExecutions/:id","ServiceExecutionsController.delete");

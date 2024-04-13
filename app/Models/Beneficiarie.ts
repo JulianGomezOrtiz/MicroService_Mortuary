@@ -15,7 +15,7 @@ export default class Beneficiarie extends BaseModel {
   public isprincipal_beneficiarie: boolean;
 
   @column()
-  public isEmergyContact: boolean;
+  public is_emergy_contact: boolean;
 
   @column()
   public status: number;

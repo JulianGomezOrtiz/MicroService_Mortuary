@@ -9,10 +9,6 @@ export default class extends BaseSchema {
       table.integer("plan_id").unsigned().references("plans.id").onDelete('CASCADE');
       table.integer("service_id").unsigned().references("services.id").onDelete('CASCADE');
       table.timestamp("date");
-
-      /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

@@ -33,7 +33,7 @@ export default class BeneficiariesController {
         theBeneficiarie.customer_id = body.customer_id;
         theBeneficiarie.holder_id = body.holder_id;
         theBeneficiarie.isprincipal_beneficiarie = body.isprincipal_beneficiarie;
-        theBeneficiarie.isEmergyContact = body.isEmergyContact;
+        theBeneficiarie.is_emergy_contact = body.is_emergy_contact;
         theBeneficiarie.status = body.status;
         return await theBeneficiarie.save();
     }

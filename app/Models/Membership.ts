@@ -17,9 +17,6 @@ export default class Membership extends BaseModel {
   public customer_id: number;
 
   @column()
-  public date: DateTime;
-
-  @column()
   public status: number;
 
   @column.dateTime({ autoCreate: true })

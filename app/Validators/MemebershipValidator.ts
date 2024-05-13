@@ -15,7 +15,6 @@ export default class MemebershipValidator {
         where: { customer_id: this.ctx.request.body()["customer_id"] },
       }),
     ]),
-    date: schema.date(),
     status: schema.number([rules.range(0, 1)]),
   });
 
@@ -26,8 +25,6 @@ export default class MemebershipValidator {
     "customer_id.exists":
       "El ID del cliente proporcionado no existe en la base de datos.",
     "customer_id.unique": "Ya hay una membresía asociada a este cliente.",
-    "date.required": "La fecha es obligatoria.",
-    "date.date": "El campo 'date' debe ser una fecha válida.",
     "status.range": "El campo 'status' debe estar dentro del rango de 0 a 1.",
   };
 }

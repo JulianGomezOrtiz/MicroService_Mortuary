@@ -9,7 +9,6 @@ export default class extends BaseSchema {
       table.string("name");
       table.integer("plan_id").unsigned().references("plans.id");
       table.integer("customer_id").unsigned().references("customers.id");
-      table.timestamp("date");
       table.integer("status");
       table.timestamp("created_at", { useTz: true });
       table.timestamp("updated_at", { useTz: true });

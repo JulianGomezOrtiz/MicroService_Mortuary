@@ -10,7 +10,10 @@ export default class HolderValidator {
         table: "holders",
         column: "customer_id",
         caseInsensitive: true,
-        where: { customer_id: this.ctx.request.body()["customer_id"] },
+        where: {
+          customer_id: this.ctx.request.body()["customer_id"],
+          status: 1,
+        },
       }),
     ]),
     status: schema.number([rules.range(0, 1)]),

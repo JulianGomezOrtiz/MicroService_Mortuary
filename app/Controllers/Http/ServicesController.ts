@@ -1,46 +1,81 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Service from "App/Models/Service";
+import ServiceValidator from "App/Validators/ServiceValidator";
 
 export default class ServicesController {
-  public async find({ request, params }: HttpContextContract) {
-    if (params.id) {
-      let theService: Service = await Service.findOrFail(params.id);
-      return theService.load("customers");
-    } else {
-      const data = request.all();
-      if ("page" in data && "per_page" in data) {
-        const page = request.input("page", 1);
-        const perPage = request.input("per_page", 20);
-        return await Service.query()
-          .preload("customers")
-          .paginate(page, perPage);
+  public async find({ request, params, response }: HttpContextContract) {
+    try {
+      if (params.id) {
+        let theService: Service = await Service.findOrFail(params.id);
+        await theService.load("customers");
+        return response.status(200).json({
+          message: "Registro del servicio encontrado",
+          data: theService,
+        });
       } else {
-        return await Service.query().preload("customers");
+        const data = request.all();
+        if ("page" in data && "per_page" in data) {
+          const page = request.input("page", 1);
+          const perPage = request.input("per_page", 20);
+          const services = await Service.query()
+            .preload("customers")
+            .paginate(page, perPage);
+          return response.status(200).json({
+            message: "Registro de los servicios encontrados",
+            data: services,
+          });
+        } else {
+          const services = await Service.query().preload("customers");
+          return response.status(200).json({
+            message: "Registro de los servicios encontrados",
+            data: services,
+          });
+        }
       }
+    } catch (error) {
+      return response.status(500).json({
+        message: "Error al obtener los(el) servicio(s)",
+        error: error.message,
+      });
     }
   }
 
-  public async create({ request }: HttpContextContract) {
-    const body = request.body();
+  public async create({ request, response }: HttpContextContract) {
+    const body = await request.validate(ServiceValidator);
     const theService: Service = await Service.create(body);
-    return theService;
+    return response.status(200).json({
+      message: "Servicio creado exitosamente",
+      data: theService,
+    });
   }
 
-  public async update({ params, request }: HttpContextContract) {
+  public async update({ params, request, response }: HttpContextContract) {
     const theService: Service = await Service.findOrFail(params.id);
-    const body = request.body();
+    const body = await request.validate(ServiceValidator);
     theService.customer_id = body.customer_id;
     theService.ceremony_id = body.ceremony_id;
     theService.body_ubication = body.body_ubication;
     theService.need_trip = body.need_trip;
     theService.status = body.status;
-
-    return await theService.save();
+    await theService.save();
+    return response.status(200).json({
+      message: "Servicio actualizado correctamente",
+      data: theService,
+    });
   }
 
   public async delete({ params, response }: HttpContextContract) {
-    const theService: Service = await Service.findOrFail(params.id);
-    response.status(204);
-    return await theService.delete();
+    try {
+      const theService: Service = await Service.findOrFail(params.id);
+      await theService.delete();
+      return response.status(200).json({
+        message: "Servicio eliminado correctamente",
+      });
+    } catch (error) {
+      return response.status(500).json({
+        message: "Error al eliminar el servicio",
+        error: error.message,
+      });
+    }
   }
 }

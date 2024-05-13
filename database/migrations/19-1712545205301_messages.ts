@@ -6,8 +6,12 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments("id");
-      table.string("user_id").notNullable(); //duda con respecto a la referencia
-      table.integer("chatRoom_id").unsigned().references("chatrooms.id").onDelete('CASCADE');
+      table.string("user_id");
+      table
+        .integer("chatRoom_id")
+        .unsigned()
+        .references("chatrooms.id")
+        .onDelete("CASCADE");
       table.string("message");
       table.date("date");
       table.integer("status");

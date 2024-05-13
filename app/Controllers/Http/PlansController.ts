@@ -1,43 +1,80 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Plan from "App/Models/Plan";
+import PlanValidator from "App/Validators/PlanValidator";
 
 export default class PlansController {
-  public async find({ request, params }: HttpContextContract) {
-    if (params.id) {
-      return await Plan.findOrFail(params.id);
-    } else {
-      const data = request.all();
-      if ("page" in data && "per_page" in data) {
-        const page = request.input("page", 1);
-        const perPage = request.input("per_page", 20);
-        return await Plan.query().paginate(page, perPage);
+  public async find({ request, params, response }: HttpContextContract) {
+    try {
+      if (params.id) {
+        let theplan: Plan = await Plan.findOrFail(params.id);
+        await theplan.load("customers");
+        return response.status(200).json({
+          message: "Plan encontrado",
+          data: theplan,
+        });
       } else {
-        return await Plan.query();
+        const data = request.all();
+        if ("page" in data && "per_page" in data) {
+          const page = request.input("page", 1);
+          const perPage = request.input("per_page", 20);
+          const plans = await Plan.query()
+            .preload("customers")
+            .paginate(page, perPage);
+          return response
+            .status(200)
+            .json({ message: "Planes encontrados", data: plans });
+        } else {
+          const plans = await Plan.query().preload("customers");
+          return response.status(200).json({
+            message: "Planes encontrados",
+            data: plans,
+          });
+        }
       }
+    } catch (error) {
+      return response.status(500).json({
+        message: "Error al obtener los planes",
+        error: error.message,
+      });
     }
   }
-  
-  public async create({ request }: HttpContextContract) {
-    const body = request.body();
+
+  public async create({ request, response }: HttpContextContract) {
+    const body = await request.validate(PlanValidator);
     const thePlan: Plan = await Plan.create(body);
-    return thePlan;
+    return response.status(201).json({
+      message: "Plan creado exitosamente",
+      data: thePlan,
+    });
   }
 
-  public async update({ params, request }: HttpContextContract) {
+  public async update({ params, request, response }: HttpContextContract) {
     const thePlan: Plan = await Plan.findOrFail(params.id);
-    const body = request.body();
+    const body = await request.validate(PlanValidator);
     thePlan.name = body.name;
     thePlan.description = body.description;
     thePlan.number_of_beneficiaries = body.number_of_beneficiaries;
     thePlan.price = body.price;
     thePlan.discount = body.discount;
-
-    return await thePlan.save();
+    await thePlan.save();
+    return response.status(200).json({
+      message: "Plan actualizado correctamente",
+      data: thePlan,
+    });
   }
 
   public async delete({ params, response }: HttpContextContract) {
-    const thePlan: Plan = await Plan.findOrFail(params.id);
-    response.status(204);
-    return await thePlan.delete();
+    try {
+      const thePlan: Plan = await Plan.findOrFail(params.id);
+      await thePlan.delete();
+      return response.status(200).json({
+        message: "Plan eliminado correctamente",
+      });
+    } catch (error) {
+      return response.status(500).json({
+        message: "Error al eliminar el plan",
+        error: error.message,
+      });
+    }
   }
 }

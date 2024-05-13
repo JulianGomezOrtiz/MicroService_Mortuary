@@ -11,6 +11,8 @@ export default class CustomersController {
       let customers: Customer[] = await Customer.query()
         .preload("beneficiaries")
         .preload("holders")
+        .preload("services")
+        .preload("plans")
         .paginate(page, perPage);
       let theRequest = request.toJSON();
       let token = theRequest.headers.authorization;
@@ -56,6 +58,8 @@ export default class CustomersController {
         .where("id", params.id)
         .preload("beneficiaries")
         .preload("holders")
+        .preload("services")
+        .preload("plans")
         .first();
       let theRequest = request.toJSON();
       let token = theRequest.headers.authorization;

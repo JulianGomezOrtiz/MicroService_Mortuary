@@ -1,10 +1,14 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Bill from 'App/Models/Bill';
 import Bills from "App/Models/Bill";
+import BillValidator from 'App/Validators/BillValidator';
 
 export default class BillsController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            return await Bills.findOrFail(params.id);
+            const theBill: Bill = await Bill.findOrFail(params.id)
+            await theBill.load('membership')
+            return theBill
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
@@ -16,16 +20,17 @@ export default class BillsController {
             }
         }
     }
+    
 
     public async create({ request }: HttpContextContract) {
-        const body = request.body();
+    const body = await request.validate(BillValidator);
         const theBills: Bills = await Bills.create(body);
         return theBills;
     }
 
     public async update({ params, request }: HttpContextContract) {
         const theBills: Bills = await Bills.findOrFail(params.id);
-        const body = request.body();
+    const body = await request.validate(BillValidator);
         theBills.payment_method_id = body.payment_method_id;
         return await theBills.save();
     }

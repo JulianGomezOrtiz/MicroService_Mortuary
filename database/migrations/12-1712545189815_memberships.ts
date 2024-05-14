@@ -7,9 +7,8 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments("id");
       table.string("name");
-      table.integer("plan_id").unsigned().references("plans.id").onDelete('CASCADE'); //duda respecto a las referencias de springboot
-      table.integer("customer_id").unsigned().references("customers.id").onDelete('CASCADE');
-      table.date("date");
+      table.integer("plan_id").unsigned().references("plans.id");
+      table.integer("customer_id").unsigned().references("customers.id");
       table.integer("status");
       table.timestamp("created_at", { useTz: true });
       table.timestamp("updated_at", { useTz: true });

@@ -6,8 +6,8 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments("id");
-      table.integer("membership_id").unsigned().references("memberships.id").onDelete('CASCADE');
-      table.string("payment_method_id").notNullable();
+      table.integer("membership_id").unsigned().references("memberships.id");
+      table.string("payment_method_id");
       table.timestamp("created_at", { useTz: true });
       table.timestamp("updated_at", { useTz: true });
     });

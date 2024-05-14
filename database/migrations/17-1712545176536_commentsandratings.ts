@@ -1,13 +1,16 @@
 import BaseSchema from "@ioc:Adonis/Lucid/Schema";
 
 export default class extends BaseSchema {
-  protected tableName = "comment_and_ratings";
+  protected tableName = "commentsandratings";
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments("id");
-      table.integer("service_execution_id").unsigned().references("service_executions.id").onDelete('CASCADE');
-      table.integer("customer_id").unsigned().references("customers.id").onDelete('CASCADE'); //duda dos ID para el mismo elemento?
+      table
+        .integer("service_execution_id")
+        .unsigned()
+        .references("service_executions.id");
+      table.integer("customer_id").unsigned().references("customers.id");
       table.string("description");
       table.integer("rating");
       table.timestamp("created_at", { useTz: true });

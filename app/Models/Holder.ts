@@ -1,21 +1,38 @@
-import { DateTime } from 'luxon'
-import { BaseModel, HasOne, column, hasOne } from '@ioc:Adonis/Lucid/Orm'
-
+import { DateTime } from "luxon";
+import {
+  BaseModel,
+  BelongsTo,
+  HasMany,
+  belongsTo,
+  column,
+  hasMany,
+} from "@ioc:Adonis/Lucid/Orm";
+import Customer from "./Customer";
+import Beneficiarie from "./Beneficiarie";
 
 export default class Holder extends BaseModel {
   @column({ isPrimary: true })
-  public id: number
+  public id: number;
 
   @column()
-  public customer_id: number
+  public customer_id: number;
 
   @column()
-  public status: number
+  public status: number;
 
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  public createdAt: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  public updatedAt: DateTime;
 
+  @belongsTo(() => Customer, {
+    foreignKey: "customer_id",
+  })
+  public customer: BelongsTo<typeof Customer>;
+
+  @hasMany(() => Beneficiarie, {
+    foreignKey: "holder_id",
+  })
+  public beneficiaries: HasMany<typeof Beneficiarie>;
 }

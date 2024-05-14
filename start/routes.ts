@@ -19,6 +19,13 @@
 */
 
 import Route from "@ioc:Adonis/Core/Route";
+import "./routes/customer";
+import "./routes/beneficiarie";
+import "./routes/holder";
+import "./routes/membership";
+import "./routes/plan";
+import "./routes/service_execution";
+import "./routes/service";
 
 Route.get("/Administrators", "AdministratorsController.find");
 Route.post("/Administrators", "AdministratorsController.create");
@@ -31,12 +38,6 @@ Route.post("/Bills", "BillsController.create");
 Route.get("/Bills/:id", "BillsController.find");
 Route.put("/Bills/:id", "BillsController.update");
 Route.delete("/Bills/:id", "BillsController.delete");
-
-Route.get("/Beneficiaries", "BeneficiariesController.find");
-Route.post("/Beneficiaries", "BeneficiariesController.create");
-Route.get("/Beneficiaries/:id", "BeneficiariesController.find");
-Route.put("/Beneficiaries/:id", "BeneficiariesController.update");
-Route.delete("/Beneficiaries/:id", "BeneficiariesController.delete");
 
 Route.get("/Ceremonies", "CeremoniesController.find");
 Route.post("/Ceremonies", "CeremoniesController.create");
@@ -62,12 +63,6 @@ Route.get("/CommentsAndRatings/:id", "CommentsAndRatingsController.find");
 Route.put("/CommentsAndRatings/:id", "CommentsAndRatingsController.update");
 Route.delete("/CommentsAndRatings/:id", "CommentsAndRatingsController.delete");
 
-Route.get("/Customers", "CustomersController.find");
-Route.post("/Customers", "CustomersController.create");
-Route.get("/Customers/:id", "CustomersController.find");
-Route.put("/Customers/:id", "CustomersController.update");
-Route.delete("/Customers/:id", "CustomersController.delete");
-
 Route.get("/Departments", "DepartmentsController.find");
 Route.post("/Departments", "DepartmentsController.create");
 Route.get("/Departments/:id", "DepartmentsController.find");
@@ -86,18 +81,6 @@ Route.get("/Headquarters/:id", "HeadquartersController.find");
 Route.put("/Headquarters/:id", "HeadquartersController.update");
 Route.delete("/Headquarters/:id", "HeadquartersController.delete");
 
-Route.get("/Holders", "HoldersController.find");
-Route.post("/Holders", "HoldersController.create");
-Route.get("/Holders/:id", "HoldersController.find");
-Route.put("/Holders/:id", "HoldersController.update");
-Route.delete("/Holders/:id", "HoldersController.delete");
-
-Route.get("/Memberships", "MembershipsController.find");
-Route.post("/Memberships", "MembershipsController.create");
-Route.get("/Memberships/:id", "MembershipsController.find");
-Route.put("/Memberships/:id", "MembershipsController.update");
-Route.delete("/Memberships/:id", "MembershipsController.delete");
-
 Route.get("/Messages", "MessagesController.find");
 Route.post("/Messages", "MessagesController.create");
 Route.get("/Messages/:id", "MessagesController.find");
@@ -110,26 +93,8 @@ Route.get("/PlanByService/:id", "PlanByServicesController.find");
 Route.put("/PlanByService/:id", "PlanByServicesController.update");
 Route.delete("/PlanByService/:id", "PlanByServicesController.delete");
 
-Route.get("/Plans", "PlansController.find");
-Route.post("/Plans", "PlansController.create");
-Route.get("/Plans/:id", "PlansController.find");
-Route.put("/Plans/:id", "PlansController.update");
-Route.delete("/Plans/:id", "PlansController.delete");
-
 Route.get("/Rooms", "RoomsController.find");
 Route.post("/Rooms", "RoomsController.create");
 Route.get("/Rooms/:id", "RoomsController.find");
 Route.put("/Rooms/:id", "RoomsController.update");
 Route.delete("/Rooms/:id", "RoomsController.delete");
-
-Route.get("/Services", "ServicesController.find");
-Route.post("/Services", "ServicesController.create");
-Route.get("/Services/:id", "ServicesController.find");
-Route.put("/Services/:id", "ServicesController.update");
-Route.delete("/Services/:id", "ServicesController.delete");
-
-Route.get("/ServiceExecutions", "ServiceExecutionsController.find");
-Route.post("/ServiceExecutions", "ServiceExecutionsController.create");
-Route.get("/ServiceExecutions/:id", "ServiceExecutionsController.find");
-Route.put("/ServiceExecutions/:id", "ServiceExecutionsController.update");
-Route.delete("/ServiceExecutions/:id", "ServiceExecutionsController.delete");

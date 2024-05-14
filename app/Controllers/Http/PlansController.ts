@@ -16,7 +16,7 @@ export default class PlansController {
       }
     }
   }
-  
+
   public async create({ request }: HttpContextContract) {
     const body = request.body();
     const thePlan: Plan = await Plan.create(body);

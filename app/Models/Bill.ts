@@ -9,7 +9,7 @@ export default class Bill extends BaseModel {
   public membership_id: number
 
   @column()
-  public payment_method_id: String
+  public payment_method_id: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

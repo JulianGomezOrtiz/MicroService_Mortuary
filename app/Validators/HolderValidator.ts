@@ -12,7 +12,6 @@ export default class HolderValidator {
         caseInsensitive: true,
         where: {
           customer_id: this.ctx.request.body()["customer_id"],
-          status: 1,
         },
       }),
     ]),

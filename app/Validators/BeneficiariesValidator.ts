@@ -6,6 +6,14 @@ export default class BeneficiariesValidator {
   public schema = schema.create({
     customer_id: schema.number([
       rules.exists({ table: "customers", column: "id" }),
+      rules.unique({
+        table: "beneficiaries",
+        column: "customer_id",
+        caseInsensitive: true,
+        where: {
+          customer_id: this.ctx.request.body()["customer_id"],
+        },
+      }),
     ]),
     holder_id: schema.number([
       rules.exists({ table: "holders", column: "id" }),
@@ -27,6 +35,8 @@ export default class BeneficiariesValidator {
   public messages: CustomMessages = {
     "customer_id.exists":
       "El ID del cliente proporcionado no existe en la base de datos.",
+    "customer_id.unique":
+      "El ID del cliente proporcionado ya tiene un beneficiario asociado.",
     "holder_id.exists":
       "El ID del titular proporcionado no existe en la base de datos.",
     "isprincipal_beneficiarie.unique":

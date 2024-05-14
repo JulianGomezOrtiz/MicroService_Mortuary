@@ -4,9 +4,6 @@ import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 export default class ServiceValidator {
   constructor(protected ctx: HttpContextContract) {}
   public schema = schema.create({
-    customer_id: schema.number([
-      rules.exists({ table: "customers", column: "id" }),
-    ]),
     ceremony_id: schema.number([
       rules.exists({ table: "customers", column: "id" }),
     ]),
@@ -15,8 +12,6 @@ export default class ServiceValidator {
     status: schema.number([rules.range(0, 1)]),
   });
   public messages: CustomMessages = {
-    "customer_id.exists":
-      "El ID del cliente proporcionado no existe en la base de datos.",
     "ceremony_id.exists":
       "El ID de la ceremonia proporcionado no existe en la base de datos.",
     "body_ubication.required": "La ubicación del cuerpo es obligatoria.",

@@ -20,8 +20,8 @@ export default class Room extends BaseModel {
   @column()
   public description: string;
 
-  @column()
-  public capacity: number;
+  // @column()
+  // public capacity: number;
 
   @column()
   public headquarter_id: number;

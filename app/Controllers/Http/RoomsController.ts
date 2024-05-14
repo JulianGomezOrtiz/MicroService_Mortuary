@@ -5,9 +5,9 @@ import RoomValidator from "App/Validators/RoomValidator";
 export default class RoomsController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
-      const theRoom: Room = await Room.findOrFail(params.id)
-      await theRoom.load('serviceExecution')
-      return theRoom
+      const theRoom: Room = await Room.findOrFail(params.id);
+      await theRoom.load("serviceExecution");
+      return theRoom;
     } else {
       const data = request.all();
       if ("page" in data && "per_page" in data) {
@@ -30,7 +30,7 @@ export default class RoomsController {
     const body = await request.validate(RoomValidator);
     theRoom.name = body.name;
     theRoom.description = body.description;
-    theRoom.capacity = body.capacity;
+    // theRoom.capacity = body.capacity;
     theRoom.headquarter_id = body.headquarter_id;
     theRoom.status = body.status;
     return await theRoom.save();

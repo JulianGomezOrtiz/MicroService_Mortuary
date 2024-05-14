@@ -23,9 +23,6 @@ export default class Customer extends BaseModel {
   public user: any;
 
   @column()
-  public plan_id: string;
-
-  @column()
   public status: number;
 
   @column.dateTime({ autoCreate: true })

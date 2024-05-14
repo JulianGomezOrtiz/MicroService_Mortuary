@@ -12,9 +12,6 @@ export default class Service extends BaseModel {
   public id: number;
 
   @column()
-  public customer_id: number;
-
-  @column()
   public ceremony_id: number;
 
   @column()

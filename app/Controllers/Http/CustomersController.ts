@@ -153,7 +153,6 @@ export default class CustomersController {
         });
       }
 
-      theCustomer.plan_id = newCustomerData.plan_id;
       theCustomer.status = newCustomerData.status;
 
       let theRequest = request.toJSON();

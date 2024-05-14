@@ -5,10 +5,9 @@ import CityValidator from "App/Validators/CityValidator";
 export default class CitiesController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
-      let theCity: City = await City.findOrFail(params.id);
-      // cargar la relacion
-      //await theCity.load("customer");
-      return theCity;
+      const theCity: City = await City.findOrFail(params.id)
+      await theCity.load('headquarter')
+      return theCity
     } else {
       const data = request.all();
       if ("page" in data && "per_page" in data) {

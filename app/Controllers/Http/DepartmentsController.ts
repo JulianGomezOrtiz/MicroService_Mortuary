@@ -5,10 +5,9 @@ import DepartmentValidator from "App/Validators/DepartmentValidator";
 export default class DepartmentsController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
-      let theDepartment: Department = await Department.findOrFail(params.id);
-      // cargar la relacion
-      //await theDepartment.load("customer");
-      return theDepartment;
+      const theDepartment: Department = await Department.findOrFail(params.id)
+      await theDepartment.load('cities')
+      return theDepartment
     } else {
       const data = request.all();
       if ("page" in data && "per_page" in data) {

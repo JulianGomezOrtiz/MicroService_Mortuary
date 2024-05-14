@@ -5,10 +5,9 @@ import RoomValidator from "App/Validators/RoomValidator";
 export default class RoomsController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
-      let theRoom: Room = await Room.findOrFail(params.id);
-      // cargar la relacion
-      //await theRoom.load("customer");
-      return theRoom;
+      const theRoom: Room = await Room.findOrFail(params.id)
+      await theRoom.load('serviceExecution')
+      return theRoom
     } else {
       const data = request.all();
       if ("page" in data && "per_page" in data) {

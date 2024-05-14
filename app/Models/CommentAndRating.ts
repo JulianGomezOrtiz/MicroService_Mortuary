@@ -1,5 +1,13 @@
 import { DateTime } from "luxon";
-import { BaseModel, column } from "@ioc:Adonis/Lucid/Orm";
+import {
+  BaseModel,
+  BelongsTo,
+  belongsTo,
+  column,
+  hasOne,
+} from "@ioc:Adonis/Lucid/Orm";
+import ServiceExecution from "./ServiceExecution";
+import Customer from "./Customer";
 
 export default class CommentAndRating extends BaseModel {
   @column({ isPrimary: true })
@@ -22,4 +30,14 @@ export default class CommentAndRating extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
+
+  @belongsTo(() => ServiceExecution, {
+    foreignKey: "ServiceExecution_id",
+  })
+  public serviceExecution: BelongsTo<typeof ServiceExecution>;
+
+  // @hasOne(() => Customer, {
+  //   foreignKey: "Customer_id",
+  // })
+  // public customer: BelongsTo<typeof Customer>;
 }

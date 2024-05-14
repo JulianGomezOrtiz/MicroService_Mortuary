@@ -1,5 +1,6 @@
 import { DateTime } from "luxon";
-import { BaseModel, column } from "@ioc:Adonis/Lucid/Orm";
+import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
+import Holder from "./Holder";
 
 export default class ChatRoom extends BaseModel {
   @column({ isPrimary: true })
@@ -25,4 +26,9 @@ export default class ChatRoom extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
+
+  @belongsTo(() => Holder, {
+    foreignKey: "holder_id",
+  })
+  public holder: BelongsTo<typeof Holder>;
 }

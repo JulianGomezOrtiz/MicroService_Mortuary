@@ -7,8 +7,21 @@ export default class HeadquarterValidator {
     name: schema.string([rules.maxLength(20), rules.minLength(5)]),
     description: schema.string([rules.maxLength(100), rules.minLength(5)]),
     capacity: schema.number([rules.range(0, 100)]),
-    city_id: schema.number([rules.exists({ table: "cities", column: "id" })]),
+    city_id: schema.number([
+      rules.exists({ table: "cities", column: "id", caseInsensitive: false }),
+    ]),
     status: schema.number([rules.range(0, 1)]),
   });
-  public messages: CustomMessages = {};
+  public messages: CustomMessages = {
+    "name.maxLength": "El numero máximo de caracteres permitido es de 20",
+    "name.minLength": "El numero mínimo de caracteres necesarios es de 5",
+    "description.maxLength":
+      "El numero máximo de caracteres permitido es de 100",
+    "description.minLength":
+      "El numero mínimo de caracteres necesarios es de 5",
+    "capacity.range": "la capacidad debe estár contenida entre 0 a 100",
+    "city_id.exists":
+      "El id de la ciudad no está registrado en la base de datos",
+    "status.range": "El estado debe estar entre 0 y 1",
+  };
 }

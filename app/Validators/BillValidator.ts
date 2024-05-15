@@ -6,10 +6,21 @@ export default class BillValidator {
 
   public schema = schema.create({
     membership_id: schema.number([
-      rules.exists({ table: "memberships", column: "id" }),
+      rules.exists({
+        table: "memberships",
+        column: "id",
+        where: { membership_id: this.ctx.request.body()["membership_id"] },
+      }),
     ]),
-    payment_method_id:schema.string([rules.minLength(5)])        // la tabla está en spring boot(no hay tabla en adonis)//regla para evitar error
+    payment_method_id: schema.string([rules.minLength(5)]),
+    // la tabla está en spring boot(no hay tabla en adonis)
+    //regla para evitar error
   });
 
-  public messages: CustomMessages = {};
+  public messages: CustomMessages = {
+    "membership_id.exists":
+      "El ID de la memebresía proporcionado no existe en la base de datos.",
+    "payment_method_id.minLength":
+      "El método de pago, debe contener como minimo 5 caracteres",
+  };
 }

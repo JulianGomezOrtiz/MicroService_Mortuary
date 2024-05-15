@@ -5,10 +5,12 @@ import PlanbyserviceValidator from "App/Validators/PlanbyserviceValidator";
 export default class PlanByServicesController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
-      const thePlanByService:PlanByService = await PlanByService.findOrFail(params.id)
-      await thePlanByService.load('service')
-      await thePlanByService.load('plan')
-      return thePlanByService
+      const thePlanByService: PlanByService = await PlanByService.findOrFail(
+        params.id
+      );
+      await thePlanByService.load("service");
+      await thePlanByService.load("plan");
+      return thePlanByService;
     } else {
       const data = request.all();
       if ("page" in data && "per_page" in data) {

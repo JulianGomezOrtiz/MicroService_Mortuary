@@ -30,7 +30,7 @@ export default class RoomsController {
     const body = await request.validate(RoomValidator);
     theRoom.name = body.name;
     theRoom.description = body.description;
-    // theRoom.capacity = body.capacity;
+    theRoom.capacity = body.capacity;
     theRoom.headquarter_id = body.headquarter_id;
     theRoom.status = body.status;
     return await theRoom.save();

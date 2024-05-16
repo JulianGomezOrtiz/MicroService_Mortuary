@@ -5,7 +5,7 @@ export default class CommentAndRatingValidator {
   constructor(protected ctx: HttpContextContract) {}
   public schema = schema.create({
     id: schema.number([
-      rules.exists({ table: "CommentAndRatings", column: "id" }),
+      rules.exists({ table: "commentsandratings", column: "id" }),
     ]),
     service_execution_id: schema.number([
       rules.exists({ table: "service-execution", column: "id" }),

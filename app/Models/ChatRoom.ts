@@ -3,6 +3,7 @@ import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
 import Holder from "./Holder";
 
 export default class ChatRoom extends BaseModel {
+  public static table = "chatrooms";
   @column({ isPrimary: true })
   public id: number;
 

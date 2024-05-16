@@ -11,6 +11,7 @@ export default class ServiceExecutionsController {
             .where("id", params.id)
             .preload("customer")
             .preload("service")
+            .preload("camaras")
             .first();
 
         if (serviceExecution != null) {
@@ -31,6 +32,7 @@ export default class ServiceExecutionsController {
           await ServiceExecution.query()
             .preload("customer")
             .preload("service")
+            .preload("camaras")
             .paginate(page, perPage);
 
         if (serviceExecutions && serviceExecutions.length > 0) {

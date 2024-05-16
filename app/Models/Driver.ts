@@ -8,7 +8,7 @@ import {
   hasMany,
 } from "@ioc:Adonis/Lucid/Orm";
 import ServiceExecution from "./ServiceExecution";
-import User from "./User";
+// import User from "./User";
 
 export default class Driver extends BaseModel {
   @column({ isPrimary: true })
@@ -41,10 +41,10 @@ export default class Driver extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
 
-  @belongsTo(() => User, {
-    foreignKey: "User_id",
-  })
-  public user: BelongsTo<typeof User>;
+  // @belongsTo(() => User, {
+  //   foreignKey: "User_id",
+  // })
+  // public user: BelongsTo<typeof User>;
 
   @hasMany(() => ServiceExecution, {
     foreignKey: "customer_id",

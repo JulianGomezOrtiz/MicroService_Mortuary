@@ -26,6 +26,8 @@ import "./routes/membership";
 import "./routes/plan";
 import "./routes/service_execution";
 import "./routes/service";
+import "./routes/camara";
+import "./routes/transmision";
 
 Route.get("/Administrators", "AdministratorsController.find");
 Route.post("/Administrators", "AdministratorsController.create");

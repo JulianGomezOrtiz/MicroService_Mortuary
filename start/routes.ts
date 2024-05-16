@@ -98,3 +98,29 @@ Route.post("/Rooms", "RoomsController.create");
 Route.get("/Rooms/:id", "RoomsController.find");
 Route.put("/Rooms/:id", "RoomsController.update");
 Route.delete("/Rooms/:id", "RoomsController.delete");
+
+Route.get("/Conductores", "ConductorsController.find")
+Route.post("/Conductores", "ConductorsController.create")
+Route.get("/Conductores/:id", "ConductorsController.find")
+Route.put("/Conductores/:id", "ConductorsController.update")
+Route.delete("/Conductores/:id", "ConductorsController.delete")
+
+Route.get("/Feretros", "FeretrosController.find")
+Route.post("/Feretros", "FeretrosController.create")
+Route.get("/Feretros/:id", "FeretrosController.find")
+Route.put("/Feretros/:id", "FeretrosController.update")
+Route.delete("/Feretros/:id", "FeretrosController.delete")
+
+Route.get("/Desplazamientos", "DesplazamientosController.find")
+Route.post("/Desplazamientos", "DesplazamientosController.create")
+Route.get("/Desplazamientos/:id", "DesplazamientosController.find")
+Route.put("/Desplazamientos/:id", "DesplazamientosController.update")
+Route.delete("/Desplazamientos/:id", "DesplazamientosController.delete")
+
+Route.post("/Camaras", "CamarasController.create")
+Route.get("/Camaras/:id", "CamarasController.find")
+
+
+Route.post("/Transmisions", "TransmisionsController.create")
+Route.get("/Transmisions/:id", "TransmisionsController.find")
+

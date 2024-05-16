@@ -1,7 +1,15 @@
 import { DateTime } from "luxon";
-import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
+import {
+  BaseModel,
+  BelongsTo,
+  HasMany,
+  belongsTo,
+  column,
+  hasMany,
+} from "@ioc:Adonis/Lucid/Orm";
 import Customer from "./Customer";
 import Service from "./Service";
+import Transmision from "./Transmision";
 
 export default class ServiceExecution extends BaseModel {
   @column({ isPrimary: true })
@@ -43,4 +51,9 @@ export default class ServiceExecution extends BaseModel {
     foreignKey: "service_id",
   })
   public service: BelongsTo<typeof Service>;
+
+  @hasMany(() => Transmision, {
+    foreignKey: "service_execution_id",
+  })
+  public transmision: HasMany<typeof Transmision>;
 }

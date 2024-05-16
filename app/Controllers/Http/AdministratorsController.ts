@@ -1,5 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Administrator from "App/Models/Administrator";
+import DesplazamientosController from './DesplazamientosController';
+import axios from 'axios';
 
 export default class AdministratorsController {
     public async find({ request, params }: HttpContextContract) {
@@ -17,11 +19,11 @@ export default class AdministratorsController {
         }
     }
     
-    public async create({ request }: HttpContextContract) {
-        const body = request.body();
-        const theAdministrator: Administrator = await Administrator.create(body);
-        return theAdministrator;
-    }
+    // public async create({ request }: HttpContextContract) {
+    //     const body = request.body();
+    //     const theAdministrator: Administrator = await Administrator.create(body);
+    //     return theAdministrator;
+    // }
 
     public async update({ params, request }: HttpContextContract) {
         const theAdministrator: Administrator = await Administrator.findOrFail(params.id);
@@ -37,4 +39,14 @@ export default class AdministratorsController {
         response.status(204);
         return await theAdministrator.delete();
     }
+
+    // public async create({ request }: HttpContextContract) {
+    //     const body = await request.validate(DesplazamientoValidator);
+    //     let airport = (await axios.get(`{Env.get('AEROPUERTOS')}/${body.id_aeropuerto}`)).data
+    //     body.nom_aeropuerto= airport.name
+    //     console.log(body)
+    //     console.log(airport)
+    //     const theDesplazamiento: Desplazamiento = await Desplazamiento.create(body);
+    //     return theDesplazamiento;
+    // }
 }

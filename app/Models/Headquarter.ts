@@ -7,7 +7,6 @@ import {
   column,
   hasMany,
 } from "@ioc:Adonis/Lucid/Orm";
-import Department from "./Department";
 import City from "./City";
 import Room from "./Room";
 
@@ -15,6 +14,9 @@ export default class Headquarter extends BaseModel {
   @column({ isPrimary: true })
   public id: number;
 
+  @column()
+  public administrator_id: number;
+  
   @column()
   public name: string;
 

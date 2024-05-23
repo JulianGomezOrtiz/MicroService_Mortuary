@@ -1,11 +1,16 @@
 import { DateTime } from "luxon";
 import {
   BaseModel,
+  HasMany,
   ManyToMany,
   column,
+  hasMany,
   manyToMany,
 } from "@ioc:Adonis/Lucid/Orm";
 import Customer from "./Customer";
+import Cremation from "./Cremation";
+import Burial from "./Burial";
+import Relocation from "./Relocation";
 
 export default class Service extends BaseModel {
   @column({ isPrimary: true })
@@ -35,4 +40,20 @@ export default class Service extends BaseModel {
     pivotRelatedForeignKey: "customer_id",
   })
   public customers: ManyToMany<typeof Customer>;
+
+  @hasMany(() => Cremation, {
+    foreignKey: "service_id",
+  })
+  public cremations: HasMany<typeof Cremation>;
+
+  @hasMany(() => Burial, {
+    foreignKey: "service_id",
+  })
+  public burials: HasMany<typeof Burial>;
+
+  @hasMany(() => Relocation, {
+    foreignKey: "service_id",
+  })
+  public relocations: HasMany<typeof Relocation>;
+  
 }

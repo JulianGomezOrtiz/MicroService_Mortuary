@@ -1,13 +1,13 @@
 import { DateTime } from "luxon";
-import { BaseModel, HasMany, column, hasMany } from "@ioc:Adonis/Lucid/Orm";
-import City from "./City";
+import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
+import Service from "./Service";
 
-export default class Department extends BaseModel {
+export default class Relocation extends BaseModel {
   @column({ isPrimary: true })
   public id: number;
 
   @column()
-  public name: string;
+  public service_id: number;
 
   @column()
   public location: string;
@@ -21,8 +21,9 @@ export default class Department extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
 
-  @hasMany(() => City, {
-    foreignKey: "department_id",
-  })
-  public cities: HasMany<typeof City>;
+  @belongsTo(() =>Service,{
+    foreignKey:"service_id"
+  }) 
+  public service: BelongsTo <typeof Service>
+  
 }

@@ -8,6 +8,7 @@ export default class BillsController {
     if (params.id) {
       const theBill: Bill = await Bill.findOrFail(params.id);
       await theBill.load("membership");
+      //await theBill.load("customer") Sábado si no se cuadra por whats
       return theBill;
     } else {
       const data = request.all();
@@ -30,7 +31,10 @@ export default class BillsController {
   public async update({ params, request }: HttpContextContract) {
     const theBills: Bills = await Bills.findOrFail(params.id);
     const body = await request.validate(BillValidator);
+    theBills.customer_id = body.customer_id;
+    theBills.membership_id = body.membership_id;
     theBills.payment_method_id = body.payment_method_id;
+    theBills.price = body.price;
     return await theBills.save();
   }
 

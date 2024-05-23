@@ -1,5 +1,6 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import ChatRoom from "App/Models/ChatRoom";
+import ChatRoomValidator from "App/Validators/ChatRoomValidator";
 
 export default class ChatRoomsController {
   public async find({ request, params }: HttpContextContract) {
@@ -16,16 +17,20 @@ export default class ChatRoomsController {
       }
     }
   }
-  
+
   public async create({ request }: HttpContextContract) {
-    const body = request.body();
+    // const body = request.body();
+    const body = await request.validate(ChatRoomValidator);
+
     const theChatRoom: ChatRoom = await ChatRoom.create(body);
     return theChatRoom;
   }
 
   public async update({ params, request }: HttpContextContract) {
     const theChatRoom: ChatRoom = await ChatRoom.findOrFail(params.id);
-    const body = request.body();
+    // const body = request.body();
+    const body = await request.validate(ChatRoomValidator);
+
     theChatRoom.service_execution_id = body.service_execution_id;
     theChatRoom.holder_id = body.holder_id;
     theChatRoom.name = body.name;

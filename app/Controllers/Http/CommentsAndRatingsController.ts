@@ -1,5 +1,6 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import CommentAndRating from "App/Models/CommentAndRating";
+import CommentAndRatingValidator from "App/Validators/CommentAndRating";
 
 export default class CommentsAndRatingsController {
   public async find({ request, params }: HttpContextContract) {
@@ -18,14 +19,21 @@ export default class CommentsAndRatingsController {
   }
 
   public async create({ request }: HttpContextContract) {
-    const body = request.body();
-    const theCommentAndRating: CommentAndRating = await CommentAndRating.create(body);
+    // const body = request.body();
+    const body = await request.validate(CommentAndRatingValidator);
+
+    const theCommentAndRating: CommentAndRating = await CommentAndRating.create(
+      body
+    );
     return theCommentAndRating;
   }
 
   public async update({ params, request }: HttpContextContract) {
-    const theCommentAndRating: CommentAndRating = await CommentAndRating.findOrFail(params.id);
-    const body = request.body();
+    const theCommentAndRating: CommentAndRating =
+      await CommentAndRating.findOrFail(params.id);
+    // const body = request.body();
+    const body = await request.validate(CommentAndRatingValidator);
+
     theCommentAndRating.service_execution_id = body.service_execution_id;
     theCommentAndRating.customer_id = body.customer_id;
     theCommentAndRating.description = body.description;
@@ -35,7 +43,8 @@ export default class CommentsAndRatingsController {
   }
 
   public async delete({ params, response }: HttpContextContract) {
-    const theCommentAndRating: CommentAndRating = await CommentAndRating.findOrFail(params.id);
+    const theCommentAndRating: CommentAndRating =
+      await CommentAndRating.findOrFail(params.id);
     response.status(204);
     return await theCommentAndRating.delete();
   }

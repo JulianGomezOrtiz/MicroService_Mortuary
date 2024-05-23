@@ -24,7 +24,7 @@ export default class TransmisionsController {
     const body = await request.validate(TransmisionValidator);
     //let airport = (await axios.get(`${env.get("MS_SECURITY")}/${body.puntos}`)).data;
     //  body.user_puntos= fidelidad.puntos
-    console.log(body);
+    //dejo comentado porque no logré hacer la conexion con el de seguridad
     const theTransmision: Transmision = await Transmision.create(body);
     return theTransmision;
   }

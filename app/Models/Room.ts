@@ -8,7 +8,11 @@ import {
   hasMany,
 } from "@ioc:Adonis/Lucid/Orm";
 import Headquarter from "./Headquarter";
-import ServiceExecution from "./ServiceExecution";
+
+//import ServiceExecution from "./ServiceExecution";
+
+import Burial from "./Burial";
+import Cremation from "./Cremation";
 
 export default class Room extends BaseModel {
   @column({ isPrimary: true })
@@ -20,7 +24,7 @@ export default class Room extends BaseModel {
   @column()
   public description: string;
 
-   @column()
+  @column()
   public capacity: number;
 
   @column()
@@ -40,8 +44,20 @@ export default class Room extends BaseModel {
   })
   public headquarter: BelongsTo<typeof Headquarter>;
 
-  @hasMany(() => ServiceExecution, {
+  // @hasMany(() => ServiceExecution, {
+  //   foreignKey: "room_id",
+  // })
+  // public serviceExecution: HasMany<typeof ServiceExecution>;
+
+  // con el cambio que se hizo de ceremonias por Relocation, Burial, y Cremation
+
+  @hasMany(() => Burial, {
     foreignKey: "room_id",
   })
-  public serviceExecution: HasMany<typeof ServiceExecution>;
+  public burials: HasMany<typeof Burial>;
+
+  @hasMany(() => Cremation, {
+    foreignKey: "room_id",
+  })
+  public cremations: HasMany<typeof Cremation>;
 }

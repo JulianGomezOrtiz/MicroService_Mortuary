@@ -7,6 +7,9 @@ export default class CitiesController {
     if (params.id) {
       const theCity: City = await City.findOrFail(params.id);
       await theCity.load("headquarter");
+
+      await theCity.load("department");
+
       return theCity;
     } else {
       const data = request.all();

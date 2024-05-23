@@ -4,10 +4,10 @@ import {
   BelongsTo,
   belongsTo,
   column,
-  hasOne,
+  //hasOne,
 } from "@ioc:Adonis/Lucid/Orm";
 import ServiceExecution from "./ServiceExecution";
-import Customer from "./Customer";
+//import Customer from "./Customer";
 
 export default class CommentAndRating extends BaseModel {
   @column({ isPrimary: true })

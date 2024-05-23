@@ -8,6 +8,11 @@ export default class ServicesController {
       if (params.id) {
         let theService: Service = await Service.findOrFail(params.id);
         await theService.load("customers");
+        
+        await theService.load("relocations");
+        await theService.load("burials");
+        await theService.load("cremations");
+
         return response.status(200).json({
           message: "Registro del servicio encontrado",
           data: theService,

@@ -5,9 +5,13 @@ import HeadquarterValidator from "App/Validators/HeadquarterValidator";
 export default class HeadquartersController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
-      const theHeadquarter: Headquarter = await Headquarter.findOrFail(params.id)
-      await theHeadquarter.load('room')
-      return theHeadquarter
+      const theHeadquarter: Headquarter = await Headquarter.findOrFail(
+        params.id
+      );
+      await theHeadquarter.load("room");
+      await theHeadquarter.load("city");
+
+      return theHeadquarter;
     } else {
       const data = request.all();
       if ("page" in data && "per_page" in data) {

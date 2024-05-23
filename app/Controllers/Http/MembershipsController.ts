@@ -59,7 +59,10 @@ export default class MembershipsController {
     theMembership.name = body.name;
     theMembership.plan_id = body.plan_id;
     theMembership.customer_id = body.customer_id;
-    theMembership.date = body.date;
+    // theMembership.date = body.date; 
+    //pregunta para santi el sabado, lo voy a dejar así por ahora. 
+    //con el created At que viene por defecto, o creamos una date manual 
+    // en el model no está definida
     theMembership.status = body.status;
     await theMembership.save();
     return response.status(200).json({

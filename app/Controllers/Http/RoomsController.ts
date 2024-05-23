@@ -6,7 +6,9 @@ export default class RoomsController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
       const theRoom: Room = await Room.findOrFail(params.id);
-      await theRoom.load("serviceExecution");
+      await theRoom.load("headquarter")
+      await theRoom.load("burials");
+      await theRoom.load("cremations");
       return theRoom;
     } else {
       const data = request.all();

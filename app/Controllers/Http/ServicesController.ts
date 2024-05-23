@@ -57,7 +57,6 @@ export default class ServicesController {
   public async update({ params, request, response }: HttpContextContract) {
     const theService: Service = await Service.findOrFail(params.id);
     const body = await request.validate(ServiceValidator);
-    theService.ceremony_id = body.ceremony_id;
     theService.body_ubication = body.body_ubication;
     theService.need_trip = body.need_trip;
     theService.status = body.status;

@@ -4,9 +4,6 @@ import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 export default class ServiceValidator {
   constructor(protected ctx: HttpContextContract) {}
   public schema = schema.create({
-    ceremony_id: schema.number([
-      rules.exists({ table: "customers", column: "id" }),
-    ]),
     body_ubication: schema.string(),
     need_trip: schema.boolean(),
     status: schema.number([rules.range(0, 1)]),

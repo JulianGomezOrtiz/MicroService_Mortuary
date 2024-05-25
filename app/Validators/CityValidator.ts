@@ -1,6 +1,5 @@
 import { schema, CustomMessages, rules } from "@ioc:Adonis/Core/Validator";
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import { column } from "@ioc:Adonis/Lucid/Orm";
 
 export default class CityValidator {
   constructor(protected ctx: HttpContextContract) {}
@@ -12,7 +11,7 @@ export default class CityValidator {
         table: "departments",
         column: "id",
         caseInsensitive: false,
-        where: { departments_id: this.ctx.request.body()["departments_id"] },
+        where: { department_id: this.ctx.request.body()["departments_id"] },
       }),
       rules.unique({
         table: "cities",

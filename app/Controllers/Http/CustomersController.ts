@@ -28,7 +28,7 @@ export default class CustomersController {
                   },
                 }
               );
-              customer.user = userResponse.data.data;
+              customer.user = userResponse.data;
             } catch (error) {
               customer.user = null;
             }
@@ -73,7 +73,7 @@ export default class CustomersController {
               },
             }
           );
-          customer.user = userResponse.data.data;
+          customer.user = userResponse.data;
         } catch (error) {
           customer.user = null;
         }

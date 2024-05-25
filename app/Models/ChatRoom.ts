@@ -1,6 +1,17 @@
 import { DateTime } from "luxon";
-import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
+import {
+  BaseModel,
+  BelongsTo,
+  HasMany,
+  HasOne,
+  belongsTo,
+  column,
+  hasMany,
+  hasOne,
+} from "@ioc:Adonis/Lucid/Orm";
 import Holder from "./Holder";
+import Message from "./Message";
+import ServiceExecution from "./ServiceExecution";
 
 export default class ChatRoom extends BaseModel {
   @column({ isPrimary: true })
@@ -31,4 +42,14 @@ export default class ChatRoom extends BaseModel {
     foreignKey: "holder_id",
   })
   public holder: BelongsTo<typeof Holder>;
+
+  @hasOne(() => ServiceExecution, {
+    foreignKey: "holder_id",
+  })
+  public serviceExecution: HasOne<typeof ServiceExecution>;
+
+  @hasMany(() => Message, {
+    foreignKey: "chatRoom_id",
+  })
+  public message: HasMany<typeof Message>;
 }

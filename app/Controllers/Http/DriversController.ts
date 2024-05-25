@@ -1,6 +1,6 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Driver from "App/Models/Driver";
-import DriverValidator from "App/Validators/DriverValidator";
+// import DriverValidator from "App/Validators/DriverValidator";
 
 export default class DriversController {
   public async find({ request, params }: HttpContextContract) {
@@ -19,16 +19,16 @@ export default class DriversController {
   }
 
   public async create({ request }: HttpContextContract) {
-    // const body = request.body();
-    const body = await request.validate(DriverValidator);
+    const body = request.body();
+    // const body = await request.validate(DriverValidator);
     const theDriver: Driver = await Driver.create(body);
     return theDriver;
   }
 
   public async update({ params, request }: HttpContextContract) {
     const theDriver: Driver = await Driver.findOrFail(params.id);
-    // const body = request.body();
-    const body = await request.validate(DriverValidator);
+    const body = request.body();
+    // const body = await request.validate(DriverValidator);
 
     //queda pendiente cargar el validador de driver, administrator, messages y validar los atributos faltantes
     theDriver.name = body.name;

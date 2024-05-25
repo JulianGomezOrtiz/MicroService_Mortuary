@@ -1,6 +1,6 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Administrator from "App/Models/Administrator";
-import AdministratorValidator from "App/Validators/AdministratorValidator";
+// import AdministratorValidator from "App/Validators/AdministratorValidator";
 
 export default class AdministratorsController {
   public async find({ request, params }: HttpContextContract) {
@@ -19,9 +19,8 @@ export default class AdministratorsController {
   }
 
   public async create({ request }: HttpContextContract) {
-    // const body = request.body();
-    const body = await request.validate(AdministratorValidator);
-
+    const body = request.body();
+    // const body = await request.validate(AdministratorValidator);
     const theAdministrator: Administrator = await Administrator.create(body);
     return theAdministrator;
   }
@@ -30,10 +29,10 @@ export default class AdministratorsController {
     const theAdministrator: Administrator = await Administrator.findOrFail(
       params.id
     );
-    // const body = request.body();
-    const body = await request.validate(AdministratorValidator);
-
+    const body = request.body();
+    // const body = await request.validate(AdministratorValidator);
     // elimino main office de todo administrator, a causa del diagrama
+    theAdministrator.user_id = body.user_id;
     theAdministrator.responsabilities = body.responsabilities;
     theAdministrator.status = body.status;
     return await theAdministrator.save();

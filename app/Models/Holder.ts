@@ -9,6 +9,7 @@ import {
 } from "@ioc:Adonis/Lucid/Orm";
 import Customer from "./Customer";
 import Beneficiarie from "./Beneficiarie";
+import ChatRoom from "./ChatRoom";
 
 export default class Holder extends BaseModel {
   @column({ isPrimary: true })
@@ -35,4 +36,9 @@ export default class Holder extends BaseModel {
     foreignKey: "holder_id",
   })
   public beneficiaries: HasMany<typeof Beneficiarie>;
+
+  @hasMany(() => ChatRoom, {
+    foreignKey: "holder_id",
+  })
+  public chatrooms: HasMany<typeof ChatRoom>;
 }

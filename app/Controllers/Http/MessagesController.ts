@@ -1,6 +1,6 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Message from "App/Models/Message";
-import MessageValidator from "App/Validators/MessageValidator";
+// import MessageValidator from "App/Validators/MessageValidator";
 
 export default class MessagesController {
   public async find({ request, params }: HttpContextContract) {
@@ -19,8 +19,8 @@ export default class MessagesController {
   }
 
   public async create({ request }: HttpContextContract) {
-    // const body = request.body();
-    const body = await request.validate(MessageValidator);
+    const body = request.body();
+    // const body = await request.validate(MessageValidator);
 
     const theMessage: Message = await Message.create(body);
     return theMessage;
@@ -28,8 +28,8 @@ export default class MessagesController {
 
   public async update({ params, request }: HttpContextContract) {
     const theMessage: Message = await Message.findOrFail(params.id);
-    // const body = request.body();
-    const body = await request.validate(MessageValidator);
+    const body = request.body();
+    // const body = await request.validate(MessageValidator);
 
     // theMessage.user_id = body.user_id;
     theMessage.chat_room_id = body.chat_room_id;

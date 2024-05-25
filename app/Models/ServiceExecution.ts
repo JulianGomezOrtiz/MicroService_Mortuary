@@ -9,7 +9,9 @@ import {
 } from "@ioc:Adonis/Lucid/Orm";
 import Customer from "./Customer";
 import Service from "./Service";
-import Transmision from "./Transmision";
+import CommentAndRating from "./CommentAndRating";
+import Driver from "./Driver";
+import ChatRoom from "./ChatRoom";
 
 export default class ServiceExecution extends BaseModel {
   @column({ isPrimary: true })
@@ -42,6 +44,11 @@ export default class ServiceExecution extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
 
+  @belongsTo(() => ChatRoom, {
+    foreignKey: "service_execution_id",
+  })
+  public chat_room: BelongsTo<typeof ChatRoom>;
+
   @belongsTo(() => Customer, {
     foreignKey: "customer_id",
   })
@@ -52,8 +59,13 @@ export default class ServiceExecution extends BaseModel {
   })
   public service: BelongsTo<typeof Service>;
 
-  @hasMany(() => Transmision, {
+  @belongsTo(() => Driver, {
+    foreignKey: "driver_id",
+  })
+  public driver: BelongsTo<typeof Driver>;
+
+  @hasMany(() => CommentAndRating, {
     foreignKey: "service_execution_id",
   })
-  public transmision: HasMany<typeof Transmision>;
+  public commentAndRatings: HasMany<typeof CommentAndRating>;
 }

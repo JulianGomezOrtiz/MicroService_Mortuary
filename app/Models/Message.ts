@@ -6,8 +6,8 @@ export default class Message extends BaseModel {
   @column({ isPrimary: true })
   public id: number;
 
-  // @column()
-  // public user_id: number;
+  @column()
+  public user_id: number;
 
   @column()
   public chat_room_id: number;
@@ -26,11 +26,6 @@ export default class Message extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
-
-  // @belongsTo(() => User, {
-  //   foreignKey: "User_id",
-  // })
-  // public user: BelongsTo<typeof User>;
 
   @belongsTo(() => ChatRoom, {
     foreignKey: "ChatRoom_id",

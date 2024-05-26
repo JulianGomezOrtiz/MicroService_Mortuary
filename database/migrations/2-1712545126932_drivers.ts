@@ -6,11 +6,9 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments("id");
-      table.string("user_id").notNullable();
-      table.string("name");
+      table.string("user_id").notNullable().unique();
       table.string("vehicle");
       table.string("model");
-      table.string("phone_number");
       table.integer("capacity");
       table.integer("status");
       table.timestamp("created_at", { useTz: true });

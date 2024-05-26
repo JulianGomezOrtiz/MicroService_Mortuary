@@ -1,5 +1,6 @@
 import { DateTime } from "luxon";
-import { BaseModel, column } from "@ioc:Adonis/Lucid/Orm";
+import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
+import Headquarter from "./Headquarter";
 // import User from './User'
 
 export default class Administrator extends BaseModel {
@@ -20,4 +21,9 @@ export default class Administrator extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
+
+  @belongsTo(() => Headquarter, {
+    foreignKey: "Headquarter_id",
+  })
+  public headquarter: BelongsTo<typeof Headquarter>;
 }

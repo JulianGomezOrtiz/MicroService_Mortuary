@@ -6,6 +6,7 @@ import {
   manyToMany,
 } from "@ioc:Adonis/Lucid/Orm";
 import Customer from "./Customer";
+import Service from "./Service";
 
 export default class Plan extends BaseModel {
   @column({ isPrimary: true })
@@ -38,4 +39,11 @@ export default class Plan extends BaseModel {
     pivotRelatedForeignKey: "customer_id",
   })
   public customers: ManyToMany<typeof Customer>;
+
+  @manyToMany(() => Service, {
+    pivotTable: "plan_by_services",
+    pivotForeignKey: "plan_id",
+    pivotRelatedForeignKey: "service_id",
+  })
+  public service: ManyToMany<typeof Service>;
 }

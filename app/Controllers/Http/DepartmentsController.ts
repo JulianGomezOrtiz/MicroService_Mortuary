@@ -6,16 +6,16 @@ export default class DepartmentsController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
       const theDepartment: Department = await Department.findOrFail(params.id);
-      await theDepartment.load("cities");
+      await theDepartment.load("city");
       return theDepartment;
     } else {
       const data = request.all();
       if ("page" in data && "per_page" in data) {
         const page = request.input("page", 1);
         const perPage = request.input("per_page", 20);
-        return await Department.query().paginate(page, perPage);
+        return await Department.query().preload("city").paginate(page, perPage);
       } else {
-        return await Department.query();
+        return await Department.query().preload("city");
       }
     }
   }

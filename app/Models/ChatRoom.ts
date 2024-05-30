@@ -3,11 +3,9 @@ import {
   BaseModel,
   BelongsTo,
   HasMany,
-  HasOne,
   belongsTo,
   column,
   hasMany,
-  hasOne,
 } from "@ioc:Adonis/Lucid/Orm";
 import Holder from "./Holder";
 import Message from "./Message";

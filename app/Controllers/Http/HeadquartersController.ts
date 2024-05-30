@@ -17,9 +17,12 @@ export default class HeadquartersController {
       if ("page" in data && "per_page" in data) {
         const page = request.input("page", 1);
         const perPage = request.input("per_page", 20);
-        return await Headquarter.query().paginate(page, perPage);
+        return await Headquarter.query()
+          .preload("room")
+          .preload("city")
+          .paginate(page, perPage);
       } else {
-        return await Headquarter.query();
+        return await Headquarter.query().preload("room").preload("city");
       }
     }
   }

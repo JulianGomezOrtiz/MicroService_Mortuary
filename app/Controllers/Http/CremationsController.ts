@@ -14,9 +14,12 @@ export default class CremationsController {
       if ("page" in data && "per_page" in data) {
         const page = request.input("page", 1);
         const perPage = request.input("per_page", 20);
-        return await Cremation.query().paginate(page, perPage);
+        return await Cremation.query()
+          .preload("room")
+          .preload("service")
+          .paginate(page, perPage);
       } else {
-        return await Cremation.query();
+        return await Cremation.query().preload("room").preload("service");
       }
     }
   }
@@ -29,7 +32,7 @@ export default class CremationsController {
   public async update({ params, request }: HttpContextContract) {
     const theCremation: Cremation = await Cremation.findOrFail(params.id);
     const body = await request.validate(CremationValidator);
-    
+
     theCremation.service_id = body.service_id;
     theCremation.room_id = body.room_id;
     theCremation.cremation_date = body.cremation_date;

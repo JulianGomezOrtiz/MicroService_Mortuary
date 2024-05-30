@@ -6,7 +6,6 @@ export default class RelocationsController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
       let theRelocation: Relocation = await Relocation.findOrFail(params.id);
-      // cargar la relacion
       await theRelocation.load("service");
       return theRelocation;
     } else {
@@ -14,14 +13,15 @@ export default class RelocationsController {
       if ("page" in data && "per_page" in data) {
         const page = request.input("page", 1);
         const perPage = request.input("per_page", 20);
-        return await Relocation.query().paginate(page, perPage);
+        return await Relocation.query()
+          .preload("service")
+          .paginate(page, perPage);
       } else {
-        return await Relocation.query();
+        return await Relocation.query().preload("service");
       }
     }
   }
   public async create({ request }: HttpContextContract) {
-    // const body = request.body();
     const body = await request.validate(RelocationValidator);
 
     const theRelocation: Relocation = await Relocation.create(body);
@@ -31,9 +31,8 @@ export default class RelocationsController {
 
   public async update({ params, request }: HttpContextContract) {
     const theRelocation: Relocation = await Relocation.findOrFail(params.id);
-    // const body = request.body();
-    const body = await request.validate(RelocationValidator); 
-    
+    const body = await request.validate(RelocationValidator);
+
     theRelocation.service_id = body.service_id;
     theRelocation.location = body.location;
     theRelocation.status = body.status;

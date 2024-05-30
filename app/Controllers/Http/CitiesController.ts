@@ -7,18 +7,19 @@ export default class CitiesController {
     if (params.id) {
       const theCity: City = await City.findOrFail(params.id);
       await theCity.load("headquarter");
-
       await theCity.load("department");
-
       return theCity;
     } else {
       const data = request.all();
       if ("page" in data && "per_page" in data) {
         const page = request.input("page", 1);
         const perPage = request.input("per_page", 20);
-        return await City.query().paginate(page, perPage);
+        return await City.query()
+          .preload("department")
+          .preload("headquarter")
+          .paginate(page, perPage);
       } else {
-        return await City.query();
+        return await City.query().preload("department").preload("headquarter");
       }
     }
   }

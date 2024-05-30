@@ -16,7 +16,9 @@ export default class AdministratorsController {
       const page = request.input("page", 1);
       const perPage = request.input("per_page", 20);
       let administrators: Administrator[] =
-        await Administrator.query().paginate(page, perPage);
+        await Administrator.query()
+        .preload("headquarter")
+        .paginate(page, perPage);
       let theRequest = request.toJSON();
       let token = theRequest.headers.authorization;
       if (administrators && administrators.length > 0) {
@@ -59,6 +61,8 @@ export default class AdministratorsController {
     try {
       let administrator: Administrator | null = await Administrator.query()
         .where("id", params.id)
+        .preload("headquarter")
+        .preload("user")
         .first();
       let theRequest = request.toJSON();
       let token = theRequest.headers.authorization;

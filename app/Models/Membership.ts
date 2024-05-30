@@ -1,7 +1,8 @@
 import { DateTime } from "luxon";
-import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
+import { BaseModel, BelongsTo, HasMany, belongsTo, column, hasMany } from "@ioc:Adonis/Lucid/Orm";
 import Customer from "./Customer";
 import Plan from "./Plan";
+import Bill from "./Bill";
 
 export default class Membership extends BaseModel {
   @column({ isPrimary: true })
@@ -34,4 +35,9 @@ export default class Membership extends BaseModel {
     foreignKey: "plan_id",
   })
   public plan: BelongsTo<typeof Plan>;
+
+  @hasMany(() => Bill, {
+    foreignKey: "membership_id",
+  })
+  public bill: HasMany<typeof Bill>;
 }

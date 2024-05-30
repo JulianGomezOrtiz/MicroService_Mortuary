@@ -32,12 +32,12 @@ export default class CommentAndRating extends BaseModel {
   public updatedAt: DateTime;
 
   @belongsTo(() => ServiceExecution, {
-    foreignKey: "ServiceExecution_id",
+    foreignKey: "service_execution_id",
   })
   public serviceExecution: BelongsTo<typeof ServiceExecution>;
 
   @hasOne(() => Customer, {
-    foreignKey: "Customer_id",
+    foreignKey: "customer_id",
   })
   public customer: HasOne<typeof Customer>;
 }

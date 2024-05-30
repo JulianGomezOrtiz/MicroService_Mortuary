@@ -45,7 +45,7 @@ export default class ChatRoom extends BaseModel {
   public holder: BelongsTo<typeof Holder>;
 
   @hasOne(() => ServiceExecution, {
-    foreignKey: "holder_id",
+    foreignKey: "service_execution_id",
   })
   public serviceExecution: HasOne<typeof ServiceExecution>;
 

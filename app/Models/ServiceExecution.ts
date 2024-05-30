@@ -3,9 +3,11 @@ import {
   BaseModel,
   BelongsTo,
   HasMany,
+  HasOne,
   belongsTo,
   column,
   hasMany,
+  hasOne,
 } from "@ioc:Adonis/Lucid/Orm";
 import Customer from "./Customer";
 import Service from "./Service";
@@ -44,10 +46,10 @@ export default class ServiceExecution extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
 
-  @belongsTo(() => ChatRoom, {
+  @hasOne(() => ChatRoom, {
     foreignKey: "service_execution_id",
   })
-  public chat_room: BelongsTo<typeof ChatRoom>;
+  public chat_room: HasOne<typeof ChatRoom>;
 
   @belongsTo(() => Customer, {
     foreignKey: "customer_id",

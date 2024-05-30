@@ -44,10 +44,10 @@ export default class ChatRoom extends BaseModel {
   })
   public holder: BelongsTo<typeof Holder>;
 
-  @hasOne(() => ServiceExecution, {
+  @belongsTo(() => ServiceExecution, {
     foreignKey: "service_execution_id",
   })
-  public serviceExecution: HasOne<typeof ServiceExecution>;
+  public serviceExecution: BelongsTo<typeof ServiceExecution>;
 
   @hasMany(() => Message, {
     foreignKey: "chatRoom_id",

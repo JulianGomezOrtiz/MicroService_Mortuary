@@ -21,6 +21,9 @@ export default class Message extends BaseModel {
   @column()
   public status: number;
 
+  @column()
+  public user: any;
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
 

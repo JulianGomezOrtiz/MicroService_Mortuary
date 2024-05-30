@@ -10,13 +10,12 @@ export default class CityValidator {
       rules.exists({
         table: "departments",
         column: "id",
-        caseInsensitive: false,
-        where: { departments_id: this.ctx.request.body()["departments_id"] },
       }),
       rules.unique({
         table: "cities",
         column: "department_id",
         caseInsensitive: false,
+        where: { departments_id: this.ctx.request.body()["departments_id"] },
       }),
     ]),
     status: schema.number([rules.range(0, 1)]),

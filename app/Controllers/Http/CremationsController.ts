@@ -6,7 +6,6 @@ export default class CremationsController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
       let theCremation: Cremation = await Cremation.findOrFail(params.id);
-      // cargar la relacion
       await theCremation.load("service");
       await theCremation.load("room");
       return theCremation;
@@ -23,7 +22,6 @@ export default class CremationsController {
   }
   public async create({ request }: HttpContextContract) {
     const body = await request.validate(CremationValidator);
-
     const theCremation: Cremation = await Cremation.create(body);
     return theCremation;
   }

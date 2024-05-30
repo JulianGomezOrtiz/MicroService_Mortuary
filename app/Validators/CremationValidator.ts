@@ -17,7 +17,7 @@ export default class CremationValidator {
         column: "id",
       }),
     ]),
-    cremation_date: schema.date({ format: "yyyy-MM-dd-HH:mm:ss" }),
+    cremation_date: schema.date({ format: "yyyy-MM-dd HH:mm:ss" }),
 
     status: schema.number([rules.range(0, 1)]),
   });

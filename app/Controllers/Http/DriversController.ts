@@ -4,7 +4,6 @@ import axios from "axios";
 import Env from "@ioc:Adonis/Core/Env";
 import DriverValidator from "App/Validators/DriverValidator";
 
-// import DriverValidator from "App/Validators/DriverValidator";
 
 export default class DriversController {
   public async find({ request, response }: HttpContextContract) {

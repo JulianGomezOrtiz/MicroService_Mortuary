@@ -1,6 +1,8 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Message from "App/Models/Message";
-// import MessageValidator from "App/Validators/MessageValidator";
+import MessageValidator from "App/Validators/MessageValidator";
+import axios from "axios";
+import Env from "@ioc:Adonis/Core/Env";
 
 export default class MessagesController {
   public async find({ request, params }: HttpContextContract) {
@@ -18,21 +20,51 @@ export default class MessagesController {
     }
   }
 
-  public async create({ request }: HttpContextContract) {
-    const body = request.body();
-    // const body = await request.validate(MessageValidator);
-
-    const theMessage: Message = await Message.create(body);
-    return theMessage;
+  public async create({ request, response }: HttpContextContract) {
+    try {
+      let theRequest = request.toJSON();
+      let token = theRequest.headers.authorization;
+      const body = request.body();
+      let user;
+      try {
+        user = (
+          await axios.get(
+            `${Env.get("MS-SECURITY")}/api/users/${body.user_id}`,
+            {
+              headers: {
+                Authorization: token,
+              },
+            }
+          )
+        ).data;
+      } catch (error) {
+        user = null;
+      }
+      let conflictUser: Message | null = await Message.query()
+        .where("user_id", body.user_id)
+        .first();
+      if (user && conflictUser == null) {
+        const message = await Message.create(body);
+        return response
+          .status(200)
+          .json({ mensaje: "Registro del Mensaje creado", data: message });
+      } else {
+        return response.status(400).json({
+          mensaje: "No se encontro al usuario referenciado",
+          data: body,
+        });
+      }
+    } catch (error) {
+      return response
+        .status(500)
+        .json({ mensaje: "Error en la creacion del usuario", data: error });
+    }
   }
 
   public async update({ params, request }: HttpContextContract) {
     const theMessage: Message = await Message.findOrFail(params.id);
-    const body = request.body();
-    // const body = await request.validate(MessageValidator);
-
-    // theMessage.user_id = body.user_id;
-    theMessage.chat_room_id = body.chat_room_id;
+    const body = await request.validate(MessageValidator);
+    theMessage.chatRoom_id = body.chatRoom_id;
     theMessage.message = body.message;
     theMessage.date = body.date;
     theMessage.status = body.status;

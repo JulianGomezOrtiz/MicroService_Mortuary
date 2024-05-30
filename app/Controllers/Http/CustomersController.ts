@@ -2,6 +2,7 @@ import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Customer from "App/Models/Customer";
 import axios from "axios";
 import Env from "@ioc:Adonis/Core/Env";
+import CustomerValidator from "App/Validators/CustomerValidator";
 
 export default class CustomersController {
   public async find({ request, response }: HttpContextContract) {
@@ -140,75 +141,14 @@ export default class CustomersController {
   }
 
   public async update({ params, request, response }: HttpContextContract) {
-    try {
-      const customerId = params.id;
-      const newCustomerData = request.body();
-
-      // Verificar si el cliente existe
-      const theCustomer = await Customer.find(customerId);
-      if (!theCustomer) {
-        return response.status(404).json({
-          mensaje: "Cliente no encontrado",
-          data: null,
-        });
-      }
-      theCustomer.user_id = newCustomerData.user_id;
-      theCustomer.status = newCustomerData.status;
-
-      let theRequest = request.toJSON();
-      let token = theRequest.headers.authorization;
-      let userResponse;
-      try {
-        userResponse = await axios.get(
-          `${Env.get("MS-SECURITY")}/api/users/${newCustomerData.user_id}`,
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
-      } catch (error) {
-        userResponse = null;
-      }
-
-      if (userResponse !== null) {
-        let conflictCustomer: Customer | null = await Customer.query()
-          .where("user_id", newCustomerData.user_id)
-          .first();
-
-        if (
-          conflictCustomer == null ||
-          conflictCustomer.id === theCustomer.id
-        ) {
-          theCustomer.user_id = newCustomerData.user_id;
-          try {
-            theCustomer.user = userResponse.data;
-          } catch (error) {
-            theCustomer.user = null;
-          }
-          await theCustomer.save();
-          return response
-            .status(200)
-            .json({ mensaje: "cliente actualizado", data: theCustomer });
-        } else {
-          return response.status(400).json({
-            mensaje: "Ya existe un cliente asociado al usuario referenciado",
-            data: theCustomer,
-          });
-        }
-      } else {
-        return response.status(400).json({
-          mensaje: "No se encontró el usuario referenciado",
-          data: theCustomer,
-        });
-      }
-    } catch (error) {
-      console.log(error);
-      return response.status(500).json({
-        mensaje: "Error en la actualización del cliente",
-        data: error,
-      });
-    }
+    const customer: Customer = await Customer.findOrFail(params.id);
+    const body = await request.validate(CustomerValidator);
+    customer.status = body.status;
+    await customer.save();
+    return response.status(200).json({
+      mensaje: "Cliente actualizado correctamente",
+      data: customer,
+    });
   }
 
   public async delete({ params, response }: HttpContextContract) {

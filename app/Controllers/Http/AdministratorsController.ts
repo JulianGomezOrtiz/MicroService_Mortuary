@@ -3,9 +3,15 @@ import Administrator from "App/Models/Administrator";
 import axios from "axios";
 import Env from "@ioc:Adonis/Core/Env";
 import AdministratorValidator from "App/Validators/AdministratorValidator";
+import Ws from "App/Services/Ws";
 
 export default class AdministratorsController {
   public async find({ request, response }: HttpContextContract) {
+    Ws.io.emit("news", {
+      message: "listaron desde otro lugar a administradores",
+    });
+    // Ws.io.emit('mensajes-'+//paraquien?:Usuario B,{message: 'listaron desde otro lugar a administradores'})
+    //para enviar el mensaje de a para el usuario b
     try {
       const page = request.input("page", 1);
       const perPage = request.input("per_page", 20);
@@ -108,17 +114,20 @@ export default class AdministratorsController {
       } catch (error) {
         user = null;
       }
-      let conflictAdministrator: Administrator | null = await Administrator.query()
-        .where("user_id", body.user_id)
-        .first();
+      let conflictAdministrator: Administrator | null =
+        await Administrator.query().where("user_id", body.user_id).first();
       if (user && conflictAdministrator == null) {
         const administrator = await Administrator.create(body);
         return response
           .status(200)
-          .json({ mensaje: "Registro del administrador creado", data: administrator });
+          .json({
+            mensaje: "Registro del administrador creado",
+            data: administrator,
+          });
       } else if (conflictAdministrator != null) {
         return response.status(409).json({
-          mensaje: "Ya existe un administrador asociado al usuario referenciado",
+          mensaje:
+            "Ya existe un administrador asociado al usuario referenciado",
           data: body,
         });
       } else {
@@ -130,7 +139,10 @@ export default class AdministratorsController {
     } catch (error) {
       return response
         .status(500)
-        .json({ mensaje: "Error en la creacion del administrador", data: error });
+        .json({
+          mensaje: "Error en la creacion del administrador",
+          data: error,
+        });
     }
   }
 

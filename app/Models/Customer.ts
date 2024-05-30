@@ -1,8 +1,10 @@
 import { DateTime } from "luxon";
 import {
   BaseModel,
+  BelongsTo,
   HasMany,
   ManyToMany,
+  belongsTo,
   column,
   hasMany,
   manyToMany,
@@ -11,6 +13,7 @@ import Holder from "./Holder";
 import Beneficiarie from "./Beneficiarie";
 import Service from "./Service";
 import Plan from "./Plan";
+import CommentAndRating from "./CommentAndRating";
 
 export default class Customer extends BaseModel {
   @column({ isPrimary: true })
@@ -30,6 +33,11 @@ export default class Customer extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
+
+  @belongsTo(() => CommentAndRating, {
+    foreignKey: "customer_id",
+  })
+  public commentAndRatings: BelongsTo<typeof CommentAndRating>;
 
   @hasMany(() => Holder, {
     foreignKey: "customer_id",

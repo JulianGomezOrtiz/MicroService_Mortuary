@@ -24,5 +24,5 @@ export default class Department extends BaseModel {
   @hasMany(() => City, {
     foreignKey: "department_id",
   })
-  public cities: HasMany<typeof City>;
+  public city : HasMany<typeof City>;
 }

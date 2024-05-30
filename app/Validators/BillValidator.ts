@@ -7,21 +7,17 @@ export default class BillValidator {
   public schema = schema.create({
     customer_id: schema.number([
       rules.exists({
-        table: "membership",
-        column: "customer_id",
-        where: { customer_id: this.ctx.request.body()["customer_id"] },
+        table: "customers",
+        column: "id",
       }),
     ]),
     membership_id: schema.number([
       rules.exists({
         table: "memberships",
         column: "id",
-        where: { membership_id: this.ctx.request.body()["membership_id"] },
       }),
     ]),
     payment_method_id: schema.string([rules.minLength(5)]),
-    // la tabla está en spring boot(no hay tabla en adonis)
-    //regla para evitar error
 
     price: schema.number([rules.range(1, 5000000)]),
   });

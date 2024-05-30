@@ -13,7 +13,7 @@ export default class Cremation extends BaseModel {
   @column()
   public room_id: number;
 
-  @column()
+  @column.dateTime()
   public cremation_date: DateTime;
 
   @column()

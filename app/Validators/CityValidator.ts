@@ -8,7 +8,6 @@ export default class CityValidator {
     name: schema.string({ trim: true }, [rules.maxLength(20), rules.minLength(5)]),
     department_id: schema.number([
       rules.exists({ table: "departments", column: "id" }), // Solo verifica la existencia del department_id en la tabla departments
-      rules.unique({ table: "cities", column: "department_id" })
     ]),
     status: schema.number([rules.range(0, 1)])
   });

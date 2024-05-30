@@ -10,7 +10,7 @@ export default class Message extends BaseModel {
   public user_id: number;
 
   @column()
-  public chat_room_id: number;
+  public chatRoom_id: number;
 
   @column()
   public message: string;

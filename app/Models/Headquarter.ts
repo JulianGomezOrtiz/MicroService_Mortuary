@@ -3,12 +3,15 @@ import {
   BaseModel,
   BelongsTo,
   HasMany,
+  HasOne,
   belongsTo,
   column,
   hasMany,
+  hasOne,
 } from "@ioc:Adonis/Lucid/Orm";
 import City from "./City";
 import Room from "./Room";
+import Administrator from "./Administrator";
 
 export default class Headquarter extends BaseModel {
   @column({ isPrimary: true })
@@ -47,4 +50,9 @@ export default class Headquarter extends BaseModel {
     foreignKey: "headquarter_id"
   })
   public room: HasMany<typeof Room>
+
+  @hasOne(() => Administrator,{
+    foreignKey: "administrator_id"
+  })
+  public administrator: HasOne<typeof Administrator>
 }

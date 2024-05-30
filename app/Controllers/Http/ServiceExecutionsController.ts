@@ -11,6 +11,8 @@ export default class ServiceExecutionsController {
             .where("id", params.id)
             .preload("customer")
             .preload("service")
+            .preload("driver")
+            .preload("commentAndRatings")
             .first();
 
         if (serviceExecution != null) {
@@ -31,6 +33,8 @@ export default class ServiceExecutionsController {
           await ServiceExecution.query()
             .preload("customer")
             .preload("service")
+            .preload("driver")
+            .preload("commentAndRatings")
             .paginate(page, perPage);
 
         if (serviceExecutions && serviceExecutions.length > 0) {

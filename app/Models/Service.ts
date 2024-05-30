@@ -11,6 +11,7 @@ import Customer from "./Customer";
 import Cremation from "./Cremation";
 import Burial from "./Burial";
 import Relocation from "./Relocation";
+import Plan from "./Plan";
 
 export default class Service extends BaseModel {
   @column({ isPrimary: true })
@@ -37,6 +38,13 @@ export default class Service extends BaseModel {
     pivotRelatedForeignKey: "customer_id",
   })
   public customers: ManyToMany<typeof Customer>;
+
+  @manyToMany(() => Plan, {
+    pivotTable: "plan_by_services",
+    pivotForeignKey: "service_id",
+    pivotRelatedForeignKey: "plan_id",
+  })
+  public plans: ManyToMany<typeof Plan>
 
   @hasMany(() => Cremation, {
     foreignKey: "service_id",

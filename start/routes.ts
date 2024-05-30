@@ -40,6 +40,8 @@ import "./routes/plan_by_service";
 import "./routes/relocation";
 import "./routes/room";
 import "./routes/service";
+import "./routes/camara";
+import "./routes/transmision";
 
 
 

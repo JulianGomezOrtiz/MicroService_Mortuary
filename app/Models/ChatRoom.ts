@@ -14,6 +14,7 @@ import Message from "./Message";
 import ServiceExecution from "./ServiceExecution";
 
 export default class ChatRoom extends BaseModel {
+  public static table = "chatrooms";
   @column({ isPrimary: true })
   public id: number;
 

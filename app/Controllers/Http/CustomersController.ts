@@ -28,7 +28,7 @@ export default class CustomersController {
                   },
                 }
               );
-              customer.user = userResponse.data.data;
+              customer.user = userResponse.data;
             } catch (error) {
               customer.user = null;
             }
@@ -73,7 +73,7 @@ export default class CustomersController {
               },
             }
           );
-          customer.user = userResponse.data.data;
+          customer.user = userResponse.data;
         } catch (error) {
           customer.user = null;
         }
@@ -152,7 +152,7 @@ export default class CustomersController {
           data: null,
         });
       }
-
+      theCustomer.user_id = newCustomerData.user_id;
       theCustomer.status = newCustomerData.status;
 
       let theRequest = request.toJSON();
@@ -182,7 +182,7 @@ export default class CustomersController {
         ) {
           theCustomer.user_id = newCustomerData.user_id;
           try {
-            theCustomer.user = userResponse.data.data;
+            theCustomer.user = userResponse.data;
           } catch (error) {
             theCustomer.user = null;
           }

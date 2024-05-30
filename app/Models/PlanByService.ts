@@ -13,9 +13,6 @@ export default class PlanByService extends BaseModel {
   @column()
   public service_id: number;
 
-  @column()
-  public date: DateTime;
-
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
 

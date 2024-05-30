@@ -4,9 +4,6 @@ import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 export default class CommentAndRatingValidator {
   constructor(protected ctx: HttpContextContract) {}
   public schema = schema.create({
-    id: schema.number([
-      rules.exists({ table: "CommentAndRatings", column: "id" }),
-    ]),
     service_execution_id: schema.number([
       rules.exists({ table: "service_executions", column: "id" }),
     ]),

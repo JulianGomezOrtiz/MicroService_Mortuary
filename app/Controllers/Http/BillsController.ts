@@ -10,7 +10,7 @@ export default class BillController {
         .preload("membership", (membershipQuery) => {
           membershipQuery.preload("customer");
         })
-        .firstOrFail(); 
+        .firstOrFail();
       const customer = theBill.membership.customer;
       return {
         bill: theBill,
@@ -21,9 +21,9 @@ export default class BillController {
       if ("page" in data && "per_page" in data) {
         const page = request.input("page", 1);
         const perPage = request.input("per_page", 20);
-        return await Bill.query().paginate(page, perPage);
+        return await Bill.query().preload("membership").paginate(page, perPage);
       } else {
-        return await Bill.query();
+        return await Bill.query().preload("membership")
       }
     }
   }

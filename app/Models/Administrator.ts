@@ -25,8 +25,8 @@ export default class Administrator extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
 
-  @belongsTo(() => Headquarter, {
-    foreignKey: "Headquarter_id",
-  })
-  public headquarter: BelongsTo<typeof Headquarter>;
+//   @belongsTo(() => Headquarter, {
+//     foreignKey: "Headquarter_id",
+//   })
+//   public headquarter: BelongsTo<typeof Headquarter>;
 }

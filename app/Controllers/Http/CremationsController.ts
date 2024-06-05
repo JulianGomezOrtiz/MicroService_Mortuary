@@ -19,7 +19,7 @@ export default class CremationsController {
           .preload("service")
           .paginate(page, perPage);
       } else {
-        return await Cremation.query().preload("room").preload("service");
+        return await Cremation.query().preload("room").preload("service"); 
       }
     }
   }

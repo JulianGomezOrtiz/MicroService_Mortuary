@@ -52,7 +52,7 @@ export default class Headquarter extends BaseModel {
   public room: HasMany<typeof Room>
 
   @hasOne(() => Administrator,{
-    foreignKey: "administrator_id"
+    foreignKey: "id",
   })
   public administrator: HasOne<typeof Administrator>
 }

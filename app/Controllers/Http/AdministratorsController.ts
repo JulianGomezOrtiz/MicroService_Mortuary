@@ -15,8 +15,7 @@ export default class AdministratorsController {
     try {
       const page = request.input("page", 1);
       const perPage = request.input("per_page", 20);
-      let administrators: Administrator[] =
-        await Administrator.query()
+      let administrators: Administrator[] = await Administrator.query()
         // .preload("headquarter")
         .paginate(page, perPage);
       let theRequest = request.toJSON();
@@ -122,12 +121,10 @@ export default class AdministratorsController {
         await Administrator.query().where("user_id", body.user_id).first();
       if (user && conflictAdministrator == null) {
         const administrator = await Administrator.create(body);
-        return response
-          .status(200)
-          .json({
-            mensaje: "Registro del administrador creado",
-            data: administrator,
-          });
+        return response.status(200).json({
+          mensaje: "Registro del administrador creado",
+          data: administrator,
+        });
       } else if (conflictAdministrator != null) {
         return response.status(409).json({
           mensaje:
@@ -141,12 +138,10 @@ export default class AdministratorsController {
         });
       }
     } catch (error) {
-      return response
-        .status(500)
-        .json({
-          mensaje: "Error en la creacion del administrador",
-          data: error,
-        });
+      return response.status(500).json({
+        mensaje: "Error en la creacion del administrador",
+        data: error,
+      });
     }
   }
 

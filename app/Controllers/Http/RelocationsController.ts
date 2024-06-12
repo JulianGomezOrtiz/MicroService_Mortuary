@@ -1,9 +1,13 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Relocation from "App/Models/Relocation";
+import Ws from "App/Services/Ws";
 import RelocationValidator from "App/Validators/RelocationValidator";
 
 export default class RelocationsController {
   public async find({ request, params }: HttpContextContract) {
+    Ws.io.emit("news", {
+      message: "listaron desde otro lugar las reubicaciones",
+    });
     if (params.id) {
       let theRelocation: Relocation = await Relocation.findOrFail(params.id);
       await theRelocation.load("service");

@@ -1,9 +1,13 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import ChatRoom from "App/Models/ChatRoom";
+import Ws from "App/Services/Ws";
 import ChatRoomValidator from "App/Validators/ChatRoomValidator";
 
 export default class ChatRoomsController {
   public async find({ request, params }: HttpContextContract) {
+    Ws.io.emit("news", {
+      message: "listaron desde otro lugar los chatRooms",
+    });
     if (params.id) {
       return await ChatRoom.findOrFail(params.id);
     } else {

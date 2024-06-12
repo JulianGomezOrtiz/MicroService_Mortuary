@@ -1,9 +1,13 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import ServiceExecution from "App/Models/ServiceExecution";
+import Ws from "App/Services/Ws";
 import ServiceExecutionValidator from "App/Validators/ServiceExecutionValidator";
 
 export default class ServiceExecutionsController {
   public async find({ request, params, response }: HttpContextContract) {
+    Ws.io.emit("news", {
+      message: "listaron desde otro lugar los servicios en ejecución",
+    });
     try {
       if (params.id) {
         let serviceExecution: ServiceExecution | null =

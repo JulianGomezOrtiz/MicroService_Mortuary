@@ -1,9 +1,13 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Bill from "App/Models/Bill";
+import Ws from "App/Services/Ws";
 import BillValidator from "App/Validators/BillValidator";
 
 export default class BillController {
   public async find({ request, params }: HttpContextContract) {
+    Ws.io.emit("news", {
+      message: "listaron desde otro lugar los pagos",
+    });
     if (params.id) {
       const theBill: Bill = await Bill.query()
         .where("id", params.id)

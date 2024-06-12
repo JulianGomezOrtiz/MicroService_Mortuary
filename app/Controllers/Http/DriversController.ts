@@ -3,10 +3,13 @@ import Driver from "App/Models/Driver";
 import axios from "axios";
 import Env from "@ioc:Adonis/Core/Env";
 import DriverValidator from "App/Validators/DriverValidator";
-
+import Ws from "App/Services/Ws";
 
 export default class DriversController {
   public async find({ request, response }: HttpContextContract) {
+    Ws.io.emit("news", {
+      message: "listaron desde otro lugar los conductores",
+    });
     try {
       const page = request.input("page", 1);
       const perPage = request.input("per_page", 20);

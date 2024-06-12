@@ -3,9 +3,13 @@ import Customer from "App/Models/Customer";
 import axios from "axios";
 import Env from "@ioc:Adonis/Core/Env";
 import CustomerValidator from "App/Validators/CustomerValidator";
+import Ws from "App/Services/Ws";
 
 export default class CustomersController {
   public async find({ request, response }: HttpContextContract) {
+    Ws.io.emit("news", {
+      message: "listaron desde otro lugar los clientes",
+    });
     try {
       const page = request.input("page", 1);
       const perPage = request.input("per_page", 20);

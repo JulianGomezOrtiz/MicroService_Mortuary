@@ -6,6 +6,10 @@ import Env from "@ioc:Adonis/Core/Env";
 
 export default class MessagesController {
   public async find({ request, params }: HttpContextContract) {
+    Ws
+    .io.emit("news", {
+      message: "listaron desde otro lugar los mensajes",
+    });
     if (params.id) {
       return await Message.findOrFail(params.id);
     } else {

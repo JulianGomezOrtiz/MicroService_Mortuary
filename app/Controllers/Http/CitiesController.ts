@@ -1,9 +1,13 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import City from "App/Models/City";
+import Ws from "App/Services/Ws";
 import CityValidator from "App/Validators/CityValidator";
 
 export default class CitiesController {
   public async find({ request, params }: HttpContextContract) {
+    Ws.io.emit("news", {
+      message: "listaron desde otro lugar las ciudades",
+    });
     if (params.id) {
       const theCity: City = await City.findOrFail(params.id);
       await theCity.load("headquarter");

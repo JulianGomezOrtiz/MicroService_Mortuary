@@ -1,9 +1,13 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Beneficiarie from "App/Models/Beneficiarie";
+import Ws from "App/Services/Ws";
 import BeneficiariesValidator from "App/Validators/BeneficiariesValidator";
 
 export default class BeneficiariesController {
   public async find({ request, params, response }: HttpContextContract) {
+    Ws.io.emit("news", {
+      message: "listaron desde otro lugar a beneficiaries",
+    });
     try {
       if (params.id) {
         let theBeneficiarie: Beneficiarie = await Beneficiarie.findOrFail(

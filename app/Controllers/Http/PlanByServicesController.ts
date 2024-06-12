@@ -1,9 +1,13 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import PlanByService from "App/Models/PlanByService";
+import Ws from "App/Services/Ws";
 import PlanbyserviceValidator from "App/Validators/PlanbyserviceValidator";
 
 export default class PlanByServicesController {
   public async find({ request, params }: HttpContextContract) {
+    Ws.io.emit("news", {
+      message: "listaron desde otro lugar los planes por servicio",
+    });
     if (params.id) {
       const thePlanByService: PlanByService = await PlanByService.findOrFail(
         params.id

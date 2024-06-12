@@ -1,9 +1,13 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import CommentAndRating from "App/Models/CommentAndRating";
+import Ws from "App/Services/Ws";
 import CommentAndRatingValidator from "App/Validators/CommentAndRating";
 
 export default class CommentsAndRatingsController {
   public async find({ request, params }: HttpContextContract) {
+    Ws.io.emit("news", {
+      message: "listaron desde otro lugar los comentarios y calificaciones",
+    });
     if (params.id) {
       return await CommentAndRating.findOrFail(params.id);
     } else {

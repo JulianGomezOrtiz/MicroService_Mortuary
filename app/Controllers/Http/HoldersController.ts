@@ -1,9 +1,13 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Holder from "App/Models/Holder";
+import Ws from "App/Services/Ws";
 import HolderValidator from "App/Validators/HolderValidator";
 
 export default class HoldersController {
   public async find({ request, params, response }: HttpContextContract) {
+    Ws.io.emit("news", {
+      message: "listaron desde otro lugar los titulares",
+    });
     try {
       if (params.id) {
         let theHolder: Holder = await Holder.findOrFail(params.id);

@@ -1,9 +1,13 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Room from "App/Models/Room";
+import Ws from "App/Services/Ws";
 import RoomValidator from "App/Validators/RoomValidator";
 
 export default class RoomsController {
   public async find({ request, params }: HttpContextContract) {
+    Ws.io.emit("news", {
+      message: "listaron desde otro lugar las salas",
+    });
     if (params.id) {
       const theRoom: Room = await Room.findOrFail(params.id);
       await theRoom.load("headquarter");

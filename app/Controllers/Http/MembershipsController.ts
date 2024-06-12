@@ -1,9 +1,13 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Membership from "App/Models/Membership";
+import Ws from "App/Services/Ws";
 import MemebershipValidator from "App/Validators/MemebershipValidator";
 
 export default class MembershipsController {
   public async find({ request, params, response }: HttpContextContract) {
+    Ws.io.emit("news", {
+      message: "listaron desde otro lugar las membresías",
+    });
     try {
       if (params.id) {
         let theMembership: Membership = await Membership.findOrFail(params.id);
@@ -59,9 +63,9 @@ export default class MembershipsController {
     theMembership.name = body.name;
     theMembership.plan_id = body.plan_id;
     theMembership.customer_id = body.customer_id;
-    // theMembership.date = body.date; 
-    //pregunta para santi el sabado, lo voy a dejar así por ahora. 
-    //con el created At que viene por defecto, o creamos una date manual 
+    // theMembership.date = body.date;
+    //pregunta para santi el sabado, lo voy a dejar así por ahora.
+    //con el created At que viene por defecto, o creamos una date manual
     // en el model no está definida
     theMembership.status = body.status;
     await theMembership.save();

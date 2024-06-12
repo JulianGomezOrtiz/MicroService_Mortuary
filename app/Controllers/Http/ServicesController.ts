@@ -1,14 +1,18 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Service from "App/Models/Service";
+import Ws from "App/Services/Ws";
 import ServiceValidator from "App/Validators/ServiceValidator";
 
 export default class ServicesController {
   public async find({ request, params, response }: HttpContextContract) {
+    Ws.io.emit("news", {
+      message: "listaron desde otro lugar los servicios",
+    });
     try {
       if (params.id) {
         let theService: Service = await Service.findOrFail(params.id);
         await theService.load("customers");
-        
+
         await theService.load("relocations");
         await theService.load("burials");
         await theService.load("cremations");

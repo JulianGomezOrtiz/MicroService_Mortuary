@@ -1,9 +1,13 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Plan from "App/Models/Plan";
+import Ws from "App/Services/Ws";
 import PlanValidator from "App/Validators/PlanValidator";
 
 export default class PlansController {
   public async find({ request, params, response }: HttpContextContract) {
+    Ws.io.emit("news", {
+      message: "listaron desde otro lugar los planes",
+    });
     try {
       if (params.id) {
         let theplan: Plan = await Plan.findOrFail(params.id);

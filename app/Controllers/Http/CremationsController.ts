@@ -1,9 +1,13 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Cremation from "App/Models/Cremation";
+import Ws from "App/Services/Ws";
 import CremationValidator from "App/Validators/CremationValidator";
 
 export default class CremationsController {
   public async find({ request, params }: HttpContextContract) {
+    Ws.io.emit("news", {
+      message: "listaron desde otro lugar las cremaciones",
+    });
     if (params.id) {
       let theCremation: Cremation = await Cremation.findOrFail(params.id);
       await theCremation.load("service");

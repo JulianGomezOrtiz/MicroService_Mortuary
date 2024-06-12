@@ -1,9 +1,13 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Burial from "App/Models/Burial";
+import Ws from "App/Services/Ws";
 import BurialValidator from "App/Validators/BurialValidator";
 
 export default class BurialsController {
   public async find({ request, params }: HttpContextContract) {
+    Ws.io.emit("news", {
+      message: "listaron desde otro lugar a los entierros",
+    });
     if (params.id) {
       let theBurial: Burial = await Burial.findOrFail(params.id);
       await theBurial.load("service");
